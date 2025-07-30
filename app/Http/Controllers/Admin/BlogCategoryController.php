@@ -39,7 +39,7 @@ class BlogCategoryController extends Controller
         $data['user_id'] = Auth::user()->id;
         BlogCategory::create($data);
 
-          return redirect('blog')->with('status','Product Created Successfully!');
+          return redirect('blog_category')->with('status','Product Created Successfully!');
     }
 
     /**
@@ -77,7 +77,7 @@ class BlogCategoryController extends Controller
 
         $data['user_id'] = Auth::user()->id;
         BlogCategory::findOrFail($request->id)->update($data);
-        return redirect('blog')->with('status','Product Created Successfully!');
+        return redirect('blog_category')->with('status','Product Created Successfully!');
     }
 
     /**

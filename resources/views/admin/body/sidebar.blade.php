@@ -5,7 +5,8 @@
         <!-- User details -->
         <div class="user-profile text-center mt-3">
             <div class="">
-                <img src="{{ asset('upload/admin_image/')}}/{{ Auth::user()->profile_image }}" alt="" class="avatar-md rounded-circle">
+                <img src="{{ asset('upload/admin_image/')}}/{{ Auth::user()->profile_image }}" alt=""
+                    class="avatar-md rounded-circle">
             </div>
             <div class="mt-3">
                 <h4 class="font-size-16 mb-1">{{ Auth::user()->name }}</h4>
@@ -42,7 +43,20 @@
 
 
                 </li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="ri-mail-send-line"></i>
+                        <span>Blog</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('blog.index') }}">All Blog</a></li>
+                        <li><a href="{{ route('blog.create') }}">Create Blog</a></li>
+                        {{-- <li><a href="{{ route('add.blog') }}">Add Blog</a></li> --}}
 
+                    </ul>
+
+
+                </li>
 
 
 
