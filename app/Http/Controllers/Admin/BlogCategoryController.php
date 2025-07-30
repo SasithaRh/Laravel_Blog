@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\BlogCategory;
 use App\Http\Requests\StoreBlogCategoryRequest;
 use App\Http\Requests\UpdateBlogCategoryRequest;
-
+use Auth;
 class BlogCategoryController extends Controller
 {
     /**
@@ -14,7 +14,10 @@ class BlogCategoryController extends Controller
      */
     public function index()
     {
-        //
+        $blogcategory = BlogCategory::select('blog_categories.*')
+        ->orderBy('blog_categories.id', 'desc')
+        ->paginate(5);
+         return view('admin.blog_category.index',compact('blogcategory'));
     }
 
     /**
@@ -22,7 +25,7 @@ class BlogCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.blog_category.create_category');
     }
 
     /**
@@ -30,7 +33,13 @@ class BlogCategoryController extends Controller
      */
     public function store(StoreBlogCategoryRequest $request)
     {
-        //
+
+        $data = $request->validated();
+
+        $data['user_id'] = Auth::user()->id;
+        BlogCategory::create($data);
+
+          return redirect('blog')->with('status','Product Created Successfully!');
     }
 
     /**
@@ -44,9 +53,18 @@ class BlogCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(BlogCategory $blogCategory)
+    public function edit(BlogCategory $blogCategory,$id)
     {
-        //
+
+
+        // if (Auth::user()->id !== $blogCategory->user_id) {
+        //     return abort(403, 'Unauthorized action');
+        // }
+         $blog_Category = BlogCategory::findOrFail($id);
+
+         return view('admin.blog_category.edit_category',compact('blog_Category'));
+
+
     }
 
     /**
@@ -54,14 +72,27 @@ class BlogCategoryController extends Controller
      */
     public function update(UpdateBlogCategoryRequest $request, BlogCategory $blogCategory)
     {
-        //
+        // dd($request->all());
+        $data = $request->validated();
+
+        $data['user_id'] = Auth::user()->id;
+        BlogCategory::findOrFail($request->id)->update($data);
+        return redirect('blog')->with('status','Product Created Successfully!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(BlogCategory $blogCategory)
+    public function destroy(BlogCategory $blogCategory,$id)
     {
-        //
+        $blogCategory = BlogCategory::findOrFail($id);
+
+
+        BlogCategory::findOrFail($id)->delete();
+        $notification = array(
+            'message'=>'Blog Category Successfully!',
+            'alert-type'=>'success'
+        );
+        return redirect()->back()->with($notification );
     }
 }

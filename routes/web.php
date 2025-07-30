@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Admin\BlogCategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,6 +27,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::middleware(['auth'])->group(function () {
+Route::controller(BlogCategoryController::class)->group(function(){
+    Route::get('blog', 'index' )->name('blog');
+    Route::get('create/blog_category', 'create' )->name('category.create');
+    Route::post('store/blog_category', 'store' )->name('category.store');
+    Route::get('edit/blog_category/{id}', 'edit' )->name('category.edit');
+    Route::get('delete/blog_category/{id}', 'destroy' )->name('category.delete');
+    Route::post('update/blog_category', 'update' )->name('category.update');
+});
 });
 
 require __DIR__.'/auth.php';

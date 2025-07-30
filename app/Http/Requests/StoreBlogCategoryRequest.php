@@ -11,7 +11,7 @@ class StoreBlogCategoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,11 @@ class StoreBlogCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
+       return [
+            'category_name' => 'required|string|max:500|min:3',
+            'user_id' => 'exists:users,id',
+            'status' => 'required|boolean',
+
         ];
     }
 }
