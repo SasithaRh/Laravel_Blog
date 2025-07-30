@@ -46,7 +46,7 @@ class BlogController extends Controller
         $extention = $file->getClientOriginalExtension();
 
         $imagename = time().".".$extention;
-        $path = "upload/product/";
+        $path = "upload/blog/";
         $file->move($path,$imagename);
          $data['blog_image'] = $path.$imagename;
         Blog::create($data);
@@ -89,7 +89,9 @@ class BlogController extends Controller
              }else{
                 $blogimg = $editblogpage->blog_image;
                 $filename = $blogimg;
-                unlink($filename);
+                 unlink($filename);
+
+
 
                  $file= $request->file("blog_image");
         $extention = $file->getClientOriginalExtension();

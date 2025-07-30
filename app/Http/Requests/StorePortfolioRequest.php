@@ -11,7 +11,7 @@ class StorePortfolioRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,21 @@ class StorePortfolioRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+         return [
+            'portfolio_name' => 'required|string|max:500|min:3',
+            'user_id' => 'exists:users,id',
+            'portfolio_string' => 'required|string|max:500|min:3',
+             'portfolio_image' => 'required|mimes:jpg,jpeg,png,webp',
+            'portfolio_description' => 'required',
+            'status' => 'required|boolean',
+            ];
     }
+
+             public function messages(): array
+{
+    return [
+        'portfolio_image.mimes:jpg,jpeg,png,webp' => 'Allow to upload only jpg,jpeg,png,webp extensions!',
+        // You can add more custom messages here if needed
+    ];
+}
 }

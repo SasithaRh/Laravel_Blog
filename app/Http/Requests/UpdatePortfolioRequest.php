@@ -11,7 +11,7 @@ class UpdatePortfolioRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class UpdatePortfolioRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
-        ];
+            'portfolio_name' => 'required|string|max:500|min:3',
+            'user_id' => 'exists:users,id',
+            'portfolio_string' => 'required|string|max:500|min:3',
+
+            'portfolio_description' => 'required',
+            'status' => 'required|boolean',
+            ];
     }
 }

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Portfolio;
 use App\Http\Requests\StorePortfolioRequest;
 use App\Http\Requests\UpdatePortfolioRequest;
-
+use Auth;
 class PortfolioController extends Controller
 {
     /**
@@ -14,7 +14,8 @@ class PortfolioController extends Controller
      */
     public function index()
     {
-        //
+        $portfolio = Portfolio::latest()->get();
+       return view('admin.portfolio.index',compact('portfolio'));
     }
 
     /**
@@ -22,7 +23,7 @@ class PortfolioController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.portfolio.create_portfolio');
     }
 
     /**
@@ -30,7 +31,22 @@ class PortfolioController extends Controller
      */
     public function store(StorePortfolioRequest $request)
     {
-        //
+       $data = $request->validated();
+        $data['user_id'] = Auth::user()->id;
+        //dd($data);
+
+        $file= $request->file("portfolio_image");
+        $extention = $file->getClientOriginalExtension();
+
+        $imagename = time().".".$extention;
+        $path = "upload/portfolio/";
+
+
+        $file->move($path,$imagename);
+         $data['portfolio_image'] = $path.$imagename;
+        Portfolio::create($data);
+
+       return redirect('portfolio')->with('status','Product Created Successfully!');
     }
 
     /**
@@ -44,9 +60,10 @@ class PortfolioController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Portfolio $portfolio)
+    public function edit(Portfolio $portfolio,$id)
     {
-        //
+        $portfolio = Portfolio::find($id);
+        return view('admin.portfolio.edit_portfolio',compact('portfolio'));
     }
 
     /**
@@ -54,14 +71,48 @@ class PortfolioController extends Controller
      */
     public function update(UpdatePortfolioRequest $request, Portfolio $portfolio)
     {
-        //
+        $editportfoliopage = Portfolio::find($request->id);
+// dd($editportfoliopage->portfolio_image);
+            $data = $request->validated();
+             if(!$request->file('portfolio_image')){
+
+                $data['portfolio_image'] = $editportfoliopage->portfolio_image;
+             }else{
+                $portfolioimg = $editportfoliopage->portfolio_image;
+                $filename = $portfolioimg;
+                 unlink($filename);
+
+
+
+                 $file= $request->file("portfolio_image");
+        $extention = $file->getClientOriginalExtension();
+
+        $imagename = time().".".$extention;
+        $path = "upload/portfolio/";
+        $file->move($path,$imagename);
+         $data['portfolio_image'] = $path.$imagename;
+
+             }
+
+        Portfolio::findOrFail($request->id)->update($data);
+        return redirect('portfolio')->with('status','Product Created Successfully!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Portfolio $portfolio)
+    public function destroy(Portfolio $portfolio,$id)
     {
-        //
+        $Portfolio = Portfolio::findOrFail($id);
+        $Portfolioimg = $Portfolio->portfolio_image;
+        $filename = $Portfolioimg;
+        unlink($filename);
+
+        Portfolio::findOrFail($id)->delete();
+        $notification = array(
+            'message'=>'Portfolio Deleted Successfully!',
+            'alert-type'=>'success'
+        );
+        return redirect()->back()->with($notification );
     }
 }

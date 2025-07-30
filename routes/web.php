@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\PortfolioController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,6 +50,17 @@ Route::controller(BlogController::class)->group(function(){
     Route::get('edit/blog/{id}', 'edit' )->name('blog.edit');
     Route::get('delete/blog/{id}', 'destroy' )->name('blog.delete');
     Route::post('update/blog', 'update' )->name('blog.update');
+});
+});
+
+Route::middleware(['auth'])->group(function () {
+Route::controller(PortfolioController::class)->group(function(){
+    Route::get('portfolio', 'index' )->name('portfolio.index');
+    Route::get('create/portfolio', 'create' )->name('portfolio.create');
+    Route::post('store/portfolio', 'store' )->name('portfolio.store');
+    Route::get('edit/portfolio/{id}', 'edit' )->name('portfolio.edit');
+    Route::get('delete/portfolio/{id}', 'destroy' )->name('portfolio.delete');
+    Route::post('update/portfolio', 'update' )->name('portfolio.update');
 });
 });
 require __DIR__.'/auth.php';

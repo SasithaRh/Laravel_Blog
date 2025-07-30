@@ -51,14 +51,23 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('blog.index') }}">All Blog</a></li>
                         <li><a href="{{ route('blog.create') }}">Create Blog</a></li>
-                        {{-- <li><a href="{{ route('add.blog') }}">Add Blog</a></li> --}}
-
                     </ul>
 
 
                 </li>
 
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="ri-mail-send-line"></i>
+                        <span>Portfolio</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('portfolio.index') }}">All Portfolio</a></li>
+                        <li><a href="{{ route('portfolio.create') }}">Create Portfolio</a></li>
+                        </ul>
 
+
+                </li>
 
 
 
