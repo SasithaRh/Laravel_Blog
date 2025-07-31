@@ -8,6 +8,8 @@ use App\Models\BlogCategory;
 use App\Http\Requests\StoreBlogRequest;
 use App\Http\Requests\UpdateBlogRequest;
 use Auth;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\GD\Driver;
 
 class BlogController extends Controller
 {
@@ -36,23 +38,36 @@ class BlogController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBlogRequest $request)
-    {
-        $data = $request->validated();
-        $data['user_id'] = Auth::user()->id;
-        //dd($data);
+   public function store(StoreBlogRequest $request)
+{
+    $data = $request->validated();
+    $data['user_id'] = Auth::id();
 
-        $file= $request->file("blog_image");
-        $extention = $file->getClientOriginalExtension();
+    if ($request->hasFile('blog_image')) {
+        $file = $request->file("blog_image");
+        $extension = $file->getClientOriginalExtension();
+        $imagename = time() . "." . $extension;
+        $path = public_path("upload/blog/");
 
-        $imagename = time().".".$extention;
-        $path = "upload/blog/";
-        $file->move($path,$imagename);
-         $data['blog_image'] = $path.$imagename;
-        Blog::create($data);
+        // Create directory if it doesn't exist
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
 
-       return redirect('blog')->with('status','Product Created Successfully!');
+        // Resize and save the image
+        $manager = new ImageManager(new Driver());
+        $image = $manager->read($file->getPathname()); // Read from temporary path
+        $image->resize(300, 200);
+        $image->save($path . $imagename); // Save to final path
+
+        $data['blog_image'] = 'upload/blog/' . $imagename;
     }
+
+    Blog::create($data);
+
+    return redirect()->route('blog')->with('status', 'Blog Created Successfully!');
+}
+
 
 
 
