@@ -64,8 +64,12 @@ class BlogController extends Controller
     }
 
     Blog::create($data);
+    $notification = array(
+            'message'=>'Blog Created Successfully!',
+            'alert-type'=>'success'
+        );
+        return redirect('blog')->with($notification );
 
-    return redirect()->route('blog')->with('status', 'Blog Created Successfully!');
 }
 
 
@@ -119,7 +123,12 @@ class BlogController extends Controller
              }
 
         Blog::findOrFail($request->id)->update($data);
-        return redirect('blog')->with('status','Product Created Successfully!');
+          $notification = array(
+            'message'=>'Blog Updated Successfully!',
+            'alert-type'=>'success'
+        );
+        return redirect('blog')->with($notification );
+
 
     }
 

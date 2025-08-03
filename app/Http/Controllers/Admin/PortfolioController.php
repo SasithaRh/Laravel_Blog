@@ -45,8 +45,12 @@ class PortfolioController extends Controller
         $file->move($path,$imagename);
          $data['portfolio_image'] = $path.$imagename;
         Portfolio::create($data);
+        $notification = array(
+            'message'=>'Portfolio Created Successfully!',
+            'alert-type'=>'success'
+        );
+        return redirect('portfolio')->with($notification );
 
-       return redirect('portfolio')->with('status','Product Created Successfully!');
     }
 
     /**
@@ -85,17 +89,22 @@ class PortfolioController extends Controller
 
 
                  $file= $request->file("portfolio_image");
-        $extention = $file->getClientOriginalExtension();
+                $extention = $file->getClientOriginalExtension();
 
-        $imagename = time().".".$extention;
-        $path = "upload/portfolio/";
-        $file->move($path,$imagename);
-         $data['portfolio_image'] = $path.$imagename;
+                $imagename = time().".".$extention;
+                $path = "upload/portfolio/";
+                $file->move($path,$imagename);
+                $data['portfolio_image'] = $path.$imagename;
 
              }
 
         Portfolio::findOrFail($request->id)->update($data);
-        return redirect('portfolio')->with('status','Product Created Successfully!');
+        $notification = array(
+            'message'=>'Portfolio Deleted Successfully!',
+            'alert-type'=>'success'
+        );
+        return redirect('portfolio')->with($notification );
+
     }
 
     /**

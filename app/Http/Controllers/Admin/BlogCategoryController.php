@@ -38,8 +38,12 @@ class BlogCategoryController extends Controller
 
         $data['user_id'] = Auth::user()->id;
         BlogCategory::create($data);
+        $notification = array(
+            'message'=>'Blog Category Added Successfully!',
+            'alert-type'=>'success'
+        );
+        return redirect('blog_category')->with($notification);
 
-          return redirect('blog_category')->with('status','Product Created Successfully!');
     }
 
     /**
@@ -77,7 +81,12 @@ class BlogCategoryController extends Controller
 
         $data['user_id'] = Auth::user()->id;
         BlogCategory::findOrFail($request->id)->update($data);
-        return redirect('blog_category')->with('status','Product Created Successfully!');
+          $notification = array(
+            'message'=>'Blog Category Updated Successfully!',
+            'alert-type'=>'success'
+        );
+        return redirect('blog_category')->with($notification );
+
     }
 
     /**
@@ -90,7 +99,7 @@ class BlogCategoryController extends Controller
 
         BlogCategory::findOrFail($id)->delete();
         $notification = array(
-            'message'=>'Blog Category Successfully!',
+            'message'=>'Blog Category Removed Successfully!',
             'alert-type'=>'success'
         );
         return redirect()->back()->with($notification );
