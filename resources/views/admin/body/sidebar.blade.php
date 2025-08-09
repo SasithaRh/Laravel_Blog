@@ -69,6 +69,18 @@
 
                 </li>
 
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="ri-mail-send-line"></i>
+                        <span>User Permissions</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('permission.index') }}">All Permissions</a></li>
+                        <li><a href="{{ route('permission.create') }}">Create Permissions</a></li>
+                        </ul>
+
+
+                </li>
 
 
             </ul>

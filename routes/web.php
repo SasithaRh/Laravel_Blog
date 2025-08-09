@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\PortfolioController;
+use App\Http\Controllers\Admin\PermissionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -61,6 +62,17 @@ Route::controller(PortfolioController::class)->group(function(){
     Route::get('edit/portfolio/{id}', 'edit' )->name('portfolio.edit');
     Route::get('delete/portfolio/{id}', 'destroy' )->name('portfolio.delete');
     Route::post('update/portfolio', 'update' )->name('portfolio.update');
+});
+});
+
+Route::middleware(['auth'])->group(function () {
+Route::controller(PermissionController::class)->group(function(){
+    Route::get('permission', 'index' )->name('permission.index');
+    Route::get('create/permission', 'create' )->name('permission.create');
+    Route::post('store/permission', 'store' )->name('permission.store');
+    Route::get('edit/permission/{id}', 'edit' )->name('permission.edit');
+    Route::get('delete/permission/{id}', 'destroy' )->name('permission.delete');
+    Route::post('update/permission', 'update' )->name('permission.update');
 });
 });
 require __DIR__.'/auth.php';

@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <h4 class="card-title">Blog Categories</h4>
+                        <h4 class="card-title">Permissions</h4>
                         <p class="card-title-desc">
                         </p>
                         <br/>
@@ -15,8 +15,8 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Blog Category name</th>
-                                <th style="width: 15%;">Status</th>
+                                <th>Permission name</th>
+                                <th style="width: 25%;">Guard_name</th>
                                 <th>Action</th>
 
                             </tr>
@@ -24,16 +24,14 @@
 
 
                             <tbody>
-                              @foreach ($blogcategory as $key => $blogcategorys)
+                              @foreach ($permission as $key => $permissions)
                               <tr>
                                 <td class="text-lg">{{ $key + 1}}</td>
-                                <td class="text-lg">{{ $blogcategorys['category_name']}}</td>
-                                <td class="font-bold">{!! $blogcategorys['status'] == 1
-                                    ? '<p class="text-success text-bold">Active</p>'
-                                    : '<p class="text-danger text-bold">In Active</p>' !!}</td>
+                                <td class="text-lg">{{ $permissions['name']}}</td>
+                                <td class="font-bold">{{ $permissions['guard_name']}}</td>
                                 <td>
-                                      <a href="{{ route('category.edit',$blogcategorys['id']) }}" class="btn btn-info sm"><i class="fas fa-edit"></i></a>
-                                    <a href="{{ route('category.delete',$blogcategorys['id']) }}"   class="btn btn-danger sm" id="delete"><i class="fas fa-trash"></i></button>
+                                      <a href="{{ route('permission.edit',$permissions['id']) }}" class="btn btn-info sm"><i class="fas fa-edit"></i></a>
+                                    <a href="{{ route('permission.delete',$permissions['id']) }}"   class="btn btn-danger sm" id="delete"><i class="fas fa-trash"></i></button>
                                 </td>
 
                             </tr>
@@ -45,7 +43,7 @@
 <div class="d-flex justify-content-center mt-4">
     <nav aria-label="Product Pagination">
         <ul class="pagination pagination-sm shadow-sm">
-            {{ $blogcategory->links() }}
+            {{ $permission->links() }}
         </ul>
     </nav>
 </div>
