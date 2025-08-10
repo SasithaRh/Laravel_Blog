@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\DB;
 class RoleController extends Controller
 {
     public function index()
@@ -90,5 +92,34 @@ class RoleController extends Controller
             'alert-type'=>'success'
         );
         return redirect()->back()->with($notification );
+    }
+
+    public function givePermissiontoRole($id)
+    {
+        $permission = Permission::select('permissions.*')
+        ->orderBy('permissions.id', 'asc')
+        ->get();
+        $role = Role::findOrFail($id);
+        $rolepermission = DB::table('role_has_permissions')
+        ->where('role_has_permissions.role_id',$role->id)
+        ->pluck('role_has_permissions.permission_id')->all();
+
+        return view('admin.roles.add-permission',compact('role','permission','rolepermission'));
+    }
+
+     public function addPermissiontoRole(Request $request,$id)
+    {
+         $request->validate([
+            'permission'=>['required']
+        ]);
+
+         $role = Role::findOrFail($id);
+
+         $role->syncPermissions($request->permission);
+            $notification = array(
+            'message'=>'Role Removed Successfully!',
+            'alert-type'=>'success'
+        );
+         return redirect()->back()->with($notification );
     }
 }

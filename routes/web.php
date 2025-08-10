@@ -85,6 +85,9 @@ Route::controller(RoleController::class)->group(function(){
     Route::get('edit/role/{id}', 'edit' )->name('role.edit');
     Route::get('delete/role/{id}', 'destroy' )->name('role.delete');
     Route::post('update/role', 'update' )->name('role.update');
+
+    Route::get('roles/give-permission/{id}', 'givePermissiontoRole' )->name('give-permission');
+    Route::post('roles/add-permission/{id}', 'addPermissiontoRole' )->name('add-permission');
 });
 });
 require __DIR__.'/auth.php';
