@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\PortfolioController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\RoleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -73,6 +74,17 @@ Route::controller(PermissionController::class)->group(function(){
     Route::get('edit/permission/{id}', 'edit' )->name('permission.edit');
     Route::get('delete/permission/{id}', 'destroy' )->name('permission.delete');
     Route::post('update/permission', 'update' )->name('permission.update');
+});
+});
+
+Route::middleware(['auth'])->group(function () {
+Route::controller(RoleController::class)->group(function(){
+    Route::get('role', 'index' )->name('role.index');
+    Route::get('create/role', 'create' )->name('role.create');
+    Route::post('store/role', 'store' )->name('role.store');
+    Route::get('edit/role/{id}', 'edit' )->name('role.edit');
+    Route::get('delete/role/{id}', 'destroy' )->name('role.delete');
+    Route::post('update/role', 'update' )->name('role.update');
 });
 });
 require __DIR__.'/auth.php';
