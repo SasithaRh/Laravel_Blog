@@ -72,7 +72,7 @@
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="ri-mail-send-line"></i>
-                        <span>User Permissions</span>
+                        <span>Permissions</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('permission.index') }}">All Permissions</a></li>
@@ -85,7 +85,7 @@
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="ri-mail-send-line"></i>
-                        <span>Set Role</span>
+                        <span>Roles</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('role.index') }}">All Roles</a></li>
@@ -95,7 +95,18 @@
 
                 </li>
 
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="ri-mail-send-line"></i>
+                        <span>Set User Role</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('user.index') }}">All Users</a></li>
+                        {{-- <li><a href="{{ route('role.create') }}">Create Roles</a></li> --}}
+                        </ul>
 
+
+                </li>
             </ul>
         </div>
         <!-- Sidebar -->
