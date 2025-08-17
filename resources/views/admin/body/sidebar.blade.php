@@ -34,7 +34,7 @@
                         <span>Blog Category</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('blog') }}">All Blog Category</a></li>
+                        <li><a href="{{ route('category.index') }}">All Blog Category</a></li>
 
                         <li><a href="{{ route('category.create') }}">Create Blog Category</a></li>
 

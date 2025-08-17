@@ -6,12 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Models\BlogCategory;
 use App\Http\Requests\StoreBlogCategoryRequest;
 use App\Http\Requests\UpdateBlogCategoryRequest;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 class BlogCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
+    public function __construct()
+    {
+        $this->middleware('permission:Delete Permission',['only'=>'destroy']);
+    }
+
     public function index()
     {
         $blogcategory = BlogCategory::select('blog_categories.*')
