@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Blog;
-use App\Models\BlogCategory;
 use App\Http\Requests\StoreBlogRequest;
 use App\Http\Requests\UpdateBlogRequest;
-use Auth;
-use Intervention\Image\ImageManager;
+use App\Models\Blog;
+use App\Models\BlogCategory;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Drivers\GD\Driver;
+use Intervention\Image\ImageManager;
 
 class BlogController extends Controller
 {
@@ -57,7 +57,7 @@ class BlogController extends Controller
         // Resize and save the image
         $manager = new ImageManager(new Driver());
         $image = $manager->read($file->getPathname()); // Read from temporary path
-        $image->resize(300, 200);
+        $image->resize(430,327);
         $image->save($path . $imagename); // Save to final path
 
         $data['blog_image'] = 'upload/blog/' . $imagename;
@@ -110,15 +110,22 @@ class BlogController extends Controller
                 $filename = $blogimg;
                  unlink($filename);
 
+         $file = $request->file("blog_image");
+        $extension = $file->getClientOriginalExtension();
+        $imagename = time() . "." . $extension;
+        $path = public_path("upload/blog/");
 
+        // Create directory if it doesn't exist
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
 
-                 $file= $request->file("blog_image");
-        $extention = $file->getClientOriginalExtension();
-
-        $imagename = time().".".$extention;
-        $path = "upload/product/";
-        $file->move($path,$imagename);
-         $data['blog_image'] = $path.$imagename;
+        // Resize and save the image
+        $manager = new ImageManager(new Driver());
+        $image = $manager->read($file->getPathname()); // Read from temporary path
+        $image->resize(430,327);
+        $image->save($path . $imagename); // Save to final path
+         $data['blog_image'] = 'upload/blog/' . $imagename;
 
              }
 

@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Portfolio;
 use App\Http\Requests\StorePortfolioRequest;
 use App\Http\Requests\UpdatePortfolioRequest;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Drivers\GD\Driver;
+use Intervention\Image\ImageManager;
 class PortfolioController extends Controller
 {
     /**
@@ -34,16 +36,25 @@ class PortfolioController extends Controller
        $data = $request->validated();
         $data['user_id'] = Auth::user()->id;
         //dd($data);
+  if ($request->hasFile('portfolio_image')) {
+        $file = $request->file("portfolio_image");
+        $extension = $file->getClientOriginalExtension();
+        $imagename = time() . "." . $extension;
+        $path = public_path("upload/portfolio/");
 
-        $file= $request->file("portfolio_image");
-        $extention = $file->getClientOriginalExtension();
+        // Create directory if it doesn't exist
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
 
-        $imagename = time().".".$extention;
-        $path = "upload/portfolio/";
+        // Resize and save the image
+        $manager = new ImageManager(new Driver());
+        $image = $manager->read($file->getPathname()); // Read from temporary path
+        $image->resize(1020,519);
+        $image->save($path . $imagename); // Save to final path
 
-
-        $file->move($path,$imagename);
-         $data['portfolio_image'] = $path.$imagename;
+        $data['portfolio_image'] = 'upload/portfolio/' . $imagename;
+    }
         Portfolio::create($data);
         $notification = array(
             'message'=>'Portfolio Created Successfully!',
@@ -86,16 +97,22 @@ class PortfolioController extends Controller
                 $filename = $portfolioimg;
                  unlink($filename);
 
+         $file = $request->file("portfolio_image");
+        $extension = $file->getClientOriginalExtension();
+        $imagename = time() . "." . $extension;
+        $path = public_path("upload/portfolio/");
 
+        // Create directory if it doesn't exist
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
 
-                 $file= $request->file("portfolio_image");
-                $extention = $file->getClientOriginalExtension();
-
-                $imagename = time().".".$extention;
-                $path = "upload/portfolio/";
-                $file->move($path,$imagename);
-                $data['portfolio_image'] = $path.$imagename;
-
+        // Resize and save the image
+        $manager = new ImageManager(new Driver());
+        $image = $manager->read($file->getPathname()); // Read from temporary path
+        $image->resize(430,327);
+        $image->save($path . $imagename); // Save to final path
+         $data['portfolio_image'] = 'upload/portfolio/' . $imagename;
              }
 
         Portfolio::findOrFail($request->id)->update($data);

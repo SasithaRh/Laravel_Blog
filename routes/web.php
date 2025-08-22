@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth'])->group(function () {
 Route::controller(BlogCategoryController::class)->group(function(){
-    Route::get('blog_category', 'index' )->name('category.index')->middleware(['role:super-admin|admin|user','permission:View  Blog Category']);
+    Route::get('blog_category', 'index' )->name('category.index')->middleware(['role:super-admin|admin','permission:View  Blog Category']);
     Route::get('create/blog_category', 'create' )->name('category.create')->middleware(['role:super-admin|admin','permission:Create Blog Category']);
     Route::post('store/blog_category', 'store' )->name('category.store')->middleware(['role:super-admin|admin','permission:Create Blog Category']);
     Route::get('edit/blog_category/{id}', 'edit' )->name('category.edit')->middleware(['role:super-admin|admin','permission:Update  Blog Category']);
@@ -47,7 +47,7 @@ Route::controller(BlogCategoryController::class)->group(function(){
 
 Route::middleware(['auth'])->group(function () {
 Route::controller(BlogController::class)->group(function(){
-    Route::get('blog', 'index' )->name('blog.index')->middleware(['role:super-admin|admin|user','permission:View Blog']);
+    Route::get('blog', 'index' )->name('blog.index')->middleware(['role:super-admin|admin','permission:View Blog']);
     Route::get('create/blog', 'create' )->name('blog.create')->middleware(['role:super-admin|admin','permission:Create Blog']);
     Route::post('store/blog', 'store' )->name('blog.store')->middleware(['role:super-admin|admin','permission:Create Blog']);
     Route::get('edit/blog/{id}', 'edit' )->name('blog.edit')->middleware(['role:super-admin|admin','permission:Update Blog']);
@@ -58,7 +58,7 @@ Route::controller(BlogController::class)->group(function(){
 
 Route::middleware(['auth'])->group(function () {
 Route::controller(PortfolioController::class)->group(function(){
-    Route::get('portfolio', 'index' )->name('portfolio.index')->middleware(['role:super-admin|admin|user','permission:View Portfolio']);
+    Route::get('portfolio', 'index' )->name('portfolio.index')->middleware(['role:super-admin|admin','permission:View Portfolio']);
     Route::get('create/portfolio', 'create' )->name('portfolio.create')->middleware(['role:super-admin|admin','permission:Create Portfolio']);
     Route::post('store/portfolio', 'store' )->name('portfolio.store')->middleware(['role:super-admin|admin','permission:Create Portfolio']);
     Route::get('edit/portfolio/{id}', 'edit' )->name('portfolio.edit')->middleware(['role:super-admin|admin','permission:Update Portfolio']);
@@ -69,7 +69,7 @@ Route::controller(PortfolioController::class)->group(function(){
 
 Route::middleware(['auth'])->group(function () {
 Route::controller(PermissionController::class)->group(function(){
-    Route::get('permission', 'index' )->name('permission.index')->middleware(['role:super-admin|admin|user','permission:View Permission']);
+    Route::get('permission', 'index' )->name('permission.index')->middleware(['role:super-admin|admin','permission:View Permission']);
     Route::get('create/permission', 'create' )->name('permission.create')->middleware(['role:super-admin|admin','permission:Create Permission']);
     Route::post('store/permission', 'store' )->name('permission.store')->middleware(['role:super-admin|admin','permission:Create Permission']);
     Route::get('edit/permission/{id}', 'edit' )->name('permission.edit')->middleware(['role:super-admin|admin','permission:Update Permission']);
@@ -80,7 +80,7 @@ Route::controller(PermissionController::class)->group(function(){
 
 Route::middleware(['auth'])->group(function () {
 Route::controller(RoleController::class)->group(function(){
-    Route::get('role', 'index' )->name('role.index')->middleware(['role:super-admin|admin|user','permission:View Role']);
+    Route::get('role', 'index' )->name('role.index')->middleware(['role:super-admin|admin','permission:View Role']);
     Route::get('create/role', 'create' )->name('role.create')->middleware(['role:super-admin|admin','permission:Create Role']);
     Route::post('store/role', 'store' )->name('role.store')->middleware(['role:super-admin|admin','permission:Create Role']);
     Route::get('edit/role/{id}', 'edit' )->name('role.edit')->middleware(['role:super-admin|admin','permission:Update Role']);
