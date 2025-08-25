@@ -64,7 +64,18 @@
 
                         </div>
 
+                           <div class="row mb-3">
+                            <label for="example-text-input" class="col-sm-2 col-form-label">Profile Image</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="file"  name="image" id="images">
+                            </div>
+                        </div>
+                    <div>
+                        <label for="example-email-input" class="col-sm-2 col-form-label"></label>
 
+                        <img id="showimage" class="rounded-circle  avatar-xl" src="{{ asset($user['image'])}}" >
+
+                    </div>
 
                     <center>
                         <input type="submit" class="btn btn-lg btn-info" value="Update User">
@@ -80,7 +91,19 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+        $('#images').change(function(e){
+            var reader = new FileReader();
+                reader.onload = function(e){
+                    $('#showimage').attr('src',e.target.result);
 
+                }
+                reader.readAsDataURL(e.target.files['0']);
+
+        });
+    });
+</script>
 <script src="{{ asset('backend/assets/libs/tinymce/tinymce.min.js') }}"></script>
 <script src="{{ asset('backend/assets/js/pages/form-editor.init.js') }}"></script>
 @endsection

@@ -26,6 +26,7 @@ class UpdateBlogRequest extends FormRequest
             'user_id' => 'exists:users,id',
             'blog_title' => 'required|string|max:500|min:3',
             'blog_tags' => 'required',
+
             'blog_description' => 'required',
 
 

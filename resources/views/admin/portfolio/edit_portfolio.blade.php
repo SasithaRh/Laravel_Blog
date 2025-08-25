@@ -51,11 +51,11 @@
                     <div>
                         <label for="example-email-input" class="col-sm-2 col-form-label"></label>
 
-                        <img id="showimage" class="rounded-circle  avatar-xl" src="{{ asset('upload/portfolio_image/')}}/{{ $portfolio['portfolio_image'] }}" >
+                        <img id="showimage" height="100px" width="200px"  src="{{ asset($portfolio['portfolio_image'])}}" >
 
                     </div>
 
-                      <div class="row mb-3">
+                      <div class="row mb-3 mt-3">
                                        <label for="example-text-status" class="col-sm-2 col-form-label">Status</label>
                                        <div class="form-group col-sm-10">
                                         <select id="example-text-status" name="status" class="form-control">

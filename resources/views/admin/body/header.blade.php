@@ -8,7 +8,7 @@
                         <img src="{{ asset('backend/assets/images/logo-sm.png') }}" alt="logo-sm" height="22">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ asset('backend/assets/images/logo-dark.png') }}" alt="logo-dark" height="20">
+                        <img src="{{ asset('backend/assets/images/logo-sm.png') }}" alt="logo-dark" height="20">
                     </span>
                 </a>
 
@@ -17,7 +17,7 @@
                         <img src="{{ asset('backend/assets/images/logo-sm.png') }}" alt="logo-sm-light" height="22">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ asset('backend/assets/images/logo-light.png') }}" alt="logo-light" height="20">
+                        <img src="{{ asset('backend/assets/images/logo-sm.png') }}" alt="logo-light" style="border-top-right-radius: 15px;border-bottom-right-radius: 15px;"height="35">
                     </span>
                 </a>
             </div>
@@ -133,7 +133,7 @@
             <div class="dropdown d-inline-block user-dropdown">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="rounded-circle header-profile-user" src="{{ asset('upload/admin_image/')}}/{{ Auth::user()->profile_image }}"
+                    <img class="rounded-circle header-profile-user" src="{{ asset(Auth::user()->image)}}"
                         alt="Header Avatar">
                     <span class="d-none d-xl-inline-block ms-1">{{ Auth::user()->name }}</span>
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>

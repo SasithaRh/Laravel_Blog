@@ -5,7 +5,7 @@
         <!-- User details -->
         <div class="user-profile text-center mt-3">
             <div class="">
-                <img src="{{ asset('upload/admin_image/')}}/{{ Auth::user()->profile_image }}" alt=""
+                <img src="{{ asset(Auth::user()->image)}}" alt=""
                     class="avatar-md rounded-circle">
             </div>
             <div class="mt-3">

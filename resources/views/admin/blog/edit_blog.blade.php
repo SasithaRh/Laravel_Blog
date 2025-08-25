@@ -76,7 +76,7 @@
                     <div>
                         <label for="example-email-input" class="col-sm-2 col-form-label"></label>
 
-                        <img id="showimage" class="rounded-circle  avatar-xl"   src="{{$editblogpage['blog_image']}}" >
+                        <img id="showimage" height="100px" width="200px"  src="{{ asset($editblogpage['blog_image'])}}" >
 
                     </div>
                     <center>
