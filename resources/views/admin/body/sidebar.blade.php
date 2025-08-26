@@ -72,6 +72,19 @@
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="ri-mail-send-line"></i>
+                        <span>Frontend Design</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('home_slider.index') }}">Home Page Slider</a></li>
+
+                        </ul>
+
+
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="ri-mail-send-line"></i>
                         <span>Permissions</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">

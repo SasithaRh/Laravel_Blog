@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\PortfolioController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Home\HomeSliderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -91,7 +92,12 @@ Route::controller(RoleController::class)->group(function(){
     Route::post('roles/add-permission/{id}', 'addPermissiontoRole' )->name('add-permission')->middleware(['role:super-admin|admin','permission:Add Permission to Role']);
 });
 });
-
+Route::middleware(['auth'])->group(function () {
+Route::controller(HomeSliderController::class)->group(function(){
+    Route::get('home_slider', 'index' )->name('home_slider.index')->middleware(['role:super-admin|admin','permission:View Home Slider']);
+    Route::post('update/home_slider', 'update' )->name('home_slider.update')->middleware(['role:super-admin|admin','permission:Update Home Slider']);
+});
+});
 Route::middleware(['auth'])->group(function(){
     Route::controller(UserController::class)->group(function(){
         Route::get('admin/logout', 'destroy' )->name('admin.logout');
