@@ -6,7 +6,7 @@
 <!-- banner-area-end -->
 
 <!-- about-area -->
-{{-- @include('frontend.home_all.home_about')   --}}
+@include('frontend.home_component.home_about')
 <!-- about-area-end -->
 
 <!-- services-area -->

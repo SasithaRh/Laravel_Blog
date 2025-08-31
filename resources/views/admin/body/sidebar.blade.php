@@ -76,7 +76,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('home_slider.index') }}">Home Page Slider</a></li>
-
+                         <li><a href="{{ route('about_me.index') }}">About Me</a></li>
                         </ul>
 
 

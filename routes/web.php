@@ -1,14 +1,15 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\BlogController;
-use App\Http\Controllers\Admin\PortfolioController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\PortfolioController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Home\AboutController;
 use App\Http\Controllers\Home\HomeSliderController;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -96,6 +97,13 @@ Route::middleware(['auth'])->group(function () {
 Route::controller(HomeSliderController::class)->group(function(){
     Route::get('home_slider', 'index' )->name('home_slider.index')->middleware(['role:super-admin|admin','permission:View Home Slider']);
     Route::post('update/home_slider', 'update' )->name('home_slider.update')->middleware(['role:super-admin|admin','permission:Update Home Slider']);
+});
+});
+
+Route::middleware(['auth'])->group(function () {
+Route::controller(AboutController::class)->group(function(){
+    Route::get('about_me', 'index' )->name('about_me.index')->middleware(['role:super-admin|admin','permission:View About']);
+    Route::post('update/about_me', 'update' )->name('about_me.update')->middleware(['role:super-admin|admin','permission:Update About']);
 });
 });
 Route::middleware(['auth'])->group(function(){
