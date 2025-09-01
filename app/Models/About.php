@@ -14,5 +14,6 @@ class About extends Model
         'short_title',
         'short_description',
         'aboutimage',
+        'long_description'
     ];
 }

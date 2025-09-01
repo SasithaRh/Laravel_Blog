@@ -25,6 +25,7 @@ class UpdateAboutRequest extends FormRequest
             'title' => 'required|string|max:100|min:3',
             'short_title' => 'required|string|max:500|min:3',
             'short_description' => 'required|string|min:50',
+            'long_description' =>'required|string|min:100',
 
         ];
     }
