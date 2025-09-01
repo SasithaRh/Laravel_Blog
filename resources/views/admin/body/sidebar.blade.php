@@ -22,7 +22,7 @@
                 <li class="menu-title">Menu</li>
 
                 <li>
-                    <a href="index.html" class="waves-effect">
+                    <a href="{{ route('dashboard')}}" class="waves-effect">
                         <i class="ri-dashboard-line"></i><span class="badge rounded-pill bg-success float-end">3</span>
                         <span>Dashboard</span>
                     </a>
@@ -30,7 +30,7 @@
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="ri-mail-send-line"></i>
+                        <i class="fab fa-blogger"></i>
                         <span>Blog Category</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
@@ -45,7 +45,7 @@
                 </li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="ri-mail-send-line"></i>
+                        <i class="fab fa-blogger"></i>
                         <span>Blog</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
@@ -58,7 +58,7 @@
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="ri-mail-send-line"></i>
+                        <i class="ri-shopping-bag-3-fill"></i>
                         <span>Portfolio</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
@@ -69,7 +69,7 @@
 
                 </li>
 
-                <li>
+                {{-- <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="ri-mail-send-line"></i>
                         <span>Frontend Design</span>
@@ -80,11 +80,27 @@
                         </ul>
 
 
-                </li>
-
+                </li> --}}
+    <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="ri-palette-line"></i>
+                                    <span>Frontend Design</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="true">
+                                    <li><a href="{{ route('home_slider.index') }}">Home Page Slider</a></li>
+                                    <li><a href="javascript: void(0);" class="has-arrow">About Section</a>
+                                        <ul class="sub-menu" aria-expanded="true">
+                                            <li><a href="{{ route('about_me.index') }}">About Me</a></li>
+                                            <li><a href="javascript: void(0);">Skills</a></li>
+                                            <li><a href="javascript: void(0);">Education</a></li>
+                                            <li><a href="javascript: void(0);">Experience</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="ri-mail-send-line"></i>
+                        <i class="ri-shield-keyhole-line"></i>
                         <span>Permissions</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
@@ -92,12 +108,15 @@
                         <li><a href="{{ route('permission.create') }}">Create Permissions</a></li>
                         </ul>
 
-
+ {{-- <li>
+                                    <a class="style2" href="<?php echo $backwardseperator; ?>fixedAsset/Gatepass/FixedAssestGPReconcilation/gatepassreconcilation.php">
+                                        <i class="fa fa-circle"></i>Fixed Assets GP Reconcilation</a>
+                                </li> --}}
                 </li>
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="ri-mail-send-line"></i>
+                        <i class="fab fa-critical-role"></i>
                         <span>Roles</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
@@ -110,7 +129,7 @@
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="ri-mail-send-line"></i>
+                        <i class="ri-user-add-line"></i>
                         <span>Set User Role</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">

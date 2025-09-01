@@ -36,7 +36,7 @@
 
 </head>
 
-<body data-topbar="dark">
+<body data-topbar="dark" data-sidebar="dark"  >
 
     <!-- <body data-layout="horizontal" data-topbar="dark"> -->
 
@@ -170,7 +170,7 @@
     <script src="{{ asset('backend/assets/js/validate.min.js')}}"></script>
     <script src="{{ asset('backend/assets/js/code.js') }}"></script>
     <script src="{{ asset('backend/assets/js/validate.min.js') }}"></script>
-
+<script src="{{ asset('backend/assets/js/pages/materialdesign.init.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
         @if(Session::has('message'))
