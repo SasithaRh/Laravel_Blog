@@ -20,9 +20,9 @@ $route =Route::current()->getName();
                             </div>
                             <div class="navbar__wrap main__menu d-none d-xl-flex">
                                 <ul class="navigation">
-                                    <li class="active"><a href="{{ url('/') }}">Home</a></li>
+                                    <li class="{{ ($route == '') ? 'active' :''   }}"><a href="{{ url('/') }}">Home</a></li>
 
-                                    <li class="" ><a href="">About</a></li>
+                                     <li class="{{($route == 'home.about') ? 'active':''   }}" ><a href="{{ route('home.about') }}">About</a></li>
 
                                     <li><a href="services-details.html">Services</a></li>
                                     <li class=""><a href="">Portfolio</a>

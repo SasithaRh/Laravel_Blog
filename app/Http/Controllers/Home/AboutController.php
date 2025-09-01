@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
 use App\Models\About;
+use App\Models\Skill;
+use App\Models\Experience;
+use App\Models\Education;
 use App\Http\Requests\StoreAboutRequest;
 use App\Http\Requests\UpdateAboutRequest;
 use Intervention\Image\Drivers\GD\Driver;
@@ -22,9 +25,14 @@ class AboutController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function homeabout()
     {
-        //
+        $aboutpage = About::find(1);
+         $skills = Skill::select('skills.*')->get();
+         $experience = Experience::select('experiences.*')->get();
+        $education = Education::select('education.*')->get();
+        return view('frontend.about_page',compact('aboutpage','skills','experience','education'));
+
     }
 
     /**

@@ -141,6 +141,7 @@ Route::middleware(['auth'])->group(function () {
 Route::controller(AboutController::class)->group(function(){
     Route::get('about_me', 'index' )->name('about_me.index')->middleware(['role:super-admin|admin','permission:View About']);
     Route::post('update/about_me', 'update' )->name('about_me.update')->middleware(['role:super-admin|admin','permission:Update About']);
+
 });
 });
 Route::middleware(['auth'])->group(function(){
@@ -152,4 +153,6 @@ Route::middleware(['auth'])->group(function(){
     Route::post('update/user', 'update' )->name('user.update');
 });
 });
+ Route::get('/about', [AboutController::class, 'homeabout'])->name('home.about');
+
 require __DIR__.'/auth.php';
