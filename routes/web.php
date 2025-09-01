@@ -8,6 +8,9 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Home\AboutController;
 use App\Http\Controllers\Home\HomeSliderController;
+use App\Http\Controllers\Home\EducationController;
+use App\Http\Controllers\Home\ExperienceController;
+use App\Http\Controllers\Home\SkillController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 /*
@@ -91,6 +94,40 @@ Route::controller(RoleController::class)->group(function(){
 
     Route::get('roles/give-permission/{id}', 'givePermissiontoRole' )->name('give-permission')->middleware(['role:super-admin|admin','permission:Give Permission to Role']);
     Route::post('roles/add-permission/{id}', 'addPermissiontoRole' )->name('add-permission')->middleware(['role:super-admin|admin','permission:Add Permission to Role']);
+});
+});
+Route::middleware(['auth'])->group(function () {
+Route::controller(SkillController::class)->group(function(){
+    Route::get('skill', 'index' )->name('skill.index')->middleware(['role:super-admin|admin','permission:View Skill']);
+    Route::get('create/skill', 'create' )->name('skill.create')->middleware(['role:super-admin|admin','permission:Create Skill']);
+    Route::post('store/skill', 'store' )->name('skill.store')->middleware(['role:super-admin|admin','permission:Create Skill']);
+    Route::get('edit/skill/{id}', 'edit' )->name('skill.edit')->middleware(['role:super-admin|admin','permission:Update Skill']);
+    Route::get('delete/skill/{id}', 'destroy' )->name('skill.delete')->middleware(['role:super-admin|admin','permission:Delete Skill']);
+    Route::post('update/skill', 'update' )->name('skill.update')->middleware(['role:super-admin|admin','permission:Update Skill']);
+
+});
+});
+Route::middleware(['auth'])->group(function () {
+Route::controller(ExperienceController::class)->group(function(){
+    Route::get('experience', 'index' )->name('experience.index')->middleware(['role:super-admin|admin','permission:View Experience']);
+    Route::get('create/experience', 'create' )->name('experience.create')->middleware(['role:super-admin|admin','permission:Create Experience']);
+    Route::post('store/experience', 'store' )->name('experience.store')->middleware(['role:super-admin|admin','permission:Create Experience']);
+    Route::get('edit/experience/{id}', 'edit' )->name('experience.edit')->middleware(['role:super-admin|admin','permission:Update Experience']);
+    Route::get('delete/experience/{id}', 'destroy' )->name('experience.delete')->middleware(['role:super-admin|admin','permission:Delete Experience']);
+    Route::post('update/experience', 'update' )->name('experience.update')->middleware(['role:super-admin|admin','permission:Update Experience']);
+
+});
+});
+
+Route::middleware(['auth'])->group(function () {
+Route::controller(EducationController::class)->group(function(){
+    Route::get('education', 'index' )->name('education.index')->middleware(['role:super-admin|admin','permission:View Education']);
+    Route::get('create/education', 'create' )->name('education.create')->middleware(['role:super-admin|admin','permission:Create Education']);
+    Route::post('store/education', 'store' )->name('education.store')->middleware(['role:super-admin|admin','permission:Create Education']);
+    Route::get('edit/education/{id}', 'edit' )->name('education.edit')->middleware(['role:super-admin|admin','permission:Update Education']);
+    Route::get('delete/education/{id}', 'destroy' )->name('education.delete')->middleware(['role:super-admin|admin','permission:Delete Education']);
+    Route::post('update/education', 'update' )->name('education.update')->middleware(['role:super-admin|admin','permission:Update Education']);
+
 });
 });
 Route::middleware(['auth'])->group(function () {

@@ -7,9 +7,9 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row m-0 p-0">
-                            <h4 class="card-title col-10 flex">Blog Categories</h4>
+                            <h4 class="card-title col-10 flex">About / Experience</h4>
                             <p class="card-title-desc col-2 p-0">
-                                <a href="{{ route('category.create') }}" class="btn btn-info sm">Add New Blog Category</a>
+                                <a href="{{ route('experience.create') }}" class="btn btn-info sm">Add New Experience</a>
                             </p>
                         </div>
                         <h4 class="card-title"></h4>
@@ -21,26 +21,26 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Blog Category name</th>
-                                    <th style="width: 15%;">Status</th>
-                                    <th>Action</th>
+                                    <th>Title</th>
+                                    <th>Year Gap</th>
+                                    <th >Short Description</th>
+                                    <th >Action</th>
 
                                 </tr>
                             </thead>
 
 
                             <tbody>
-                                @foreach ($blogcategory as $key => $blogcategorys)
+                                @foreach ($experience as $key => $experiences)
                                 <tr>
                                     <td class="text-lg">{{ $key + 1}}</td>
-                                    <td class="text-lg">{{ $blogcategorys['category_name']}}</td>
-                                    <td class="font-bold">{!! $blogcategorys['status'] == 1
-                                        ? '<p class="text-success text-bold">Active</p>'
-                                        : '<p class="text-danger text-bold">In Active</p>' !!}</td>
+                                    <td class="text-lg">{{ $experiences['title']}}</td>
+                                    <td class="font-bold">{{ $experiences['year_gap'] }}</td>
+                                    <td class="font-bold">{!! $experiences['short_description'] !!}</td>
                                     <td>
-                                        <a href="{{ route('category.edit',$blogcategorys['id']) }}"
+                                        <a href="{{ route('experience.edit',$experiences['id']) }}"
                                             class="btn btn-info sm"><i class="fas fa-edit"></i></a>
-                                        <a href="{{ route('category.delete',$blogcategorys['id']) }}"
+                                        <a href="{{ route('experience.delete',$experiences['id']) }}"
                                             class="btn btn-danger sm" id="delete"><i class="fas fa-trash"></i></button>
                                     </td>
 
@@ -53,7 +53,7 @@
                         <div class="d-flex justify-content-center mt-4">
                             <nav aria-label="Product Pagination">
                                 <ul class="pagination pagination-sm shadow-sm">
-                                    {{ $blogcategory->links() }}
+                                    {{ $experience->links() }}
                                 </ul>
                             </nav>
                         </div>

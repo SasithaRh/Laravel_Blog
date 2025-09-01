@@ -91,9 +91,9 @@
                                     <li><a href="javascript: void(0);" class="has-arrow">About Section</a>
                                         <ul class="sub-menu" aria-expanded="true">
                                             <li><a href="{{ route('about_me.index') }}">About Me</a></li>
-                                            <li><a href="javascript: void(0);">Skills</a></li>
-                                            <li><a href="javascript: void(0);">Education</a></li>
-                                            <li><a href="javascript: void(0);">Experience</a></li>
+                                            <li><a href="{{ route('skill.index') }}">Skills</a></li>
+                                            <li><a href="{{ route('education.index') }}">Education</a></li>
+                                            <li><a href="{{ route('experience.index') }}">Experience</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -108,10 +108,7 @@
                         <li><a href="{{ route('permission.create') }}">Create Permissions</a></li>
                         </ul>
 
- {{-- <li>
-                                    <a class="style2" href="<?php echo $backwardseperator; ?>fixedAsset/Gatepass/FixedAssestGPReconcilation/gatepassreconcilation.php">
-                                        <i class="fa fa-circle"></i>Fixed Assets GP Reconcilation</a>
-                                </li> --}}
+
                 </li>
 
                 <li>
