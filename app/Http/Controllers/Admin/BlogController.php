@@ -123,7 +123,7 @@ class BlogController extends Controller
         // Resize and save the image
         $manager = new ImageManager(new Driver());
         $image = $manager->read($file->getPathname()); // Read from temporary path
-        $image->resize(430,327);
+        $image->resize(850,430);
         $image->save($path . $imagename); // Save to final path
          $data['blog_image'] = 'upload/blog/' . $imagename;
 
@@ -155,5 +155,29 @@ class BlogController extends Controller
             'alert-type'=>'success'
         );
         return redirect()->back()->with($notification );
+    }
+
+     public function homeblog()
+    {
+        $blogs = Blog::latest()->paginate(3);
+        $categories = BlogCategory::orderBy('id','ASC')->get();
+        return view('frontend.blog',compact('blogs','categories'));
+    }
+    public function blogdetails($id)
+    {
+        $blogtpage = Blog::find($id);
+        $allblogs = Blog::latest()->limit(5)->get();
+        $categories = BlogCategory::orderBy('id','ASC')->get();
+        return view('frontend.blog_page',compact('blogtpage','allblogs','categories'));
+
+    }
+    public function categoryblog($id)
+    {
+        $cat = BlogCategory::find($id);
+        $blogpost = Blog::where('blog_category_id',$id)->orderBy('id','DESC')->get();
+        $allblogs = Blog::latest()->limit(5)->get();
+        $categories = BlogCategory::orderBy('id','ASC')->get();
+        return view('frontend.cat_blog_details',compact('blogpost','cat','allblogs','categories'));
+
     }
 }

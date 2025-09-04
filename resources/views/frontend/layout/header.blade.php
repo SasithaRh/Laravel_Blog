@@ -25,12 +25,8 @@ $route =Route::current()->getName();
                                      <li class="{{($route == 'home.about') ? 'active':''   }}" ><a href="{{ route('home.about') }}">About</a></li>
 
                                     <li><a href="services-details.html">Services</a></li>
-                                    <li class=""><a href="">Portfolio</a>
-
-                                    </li>
-                                    <li class="" ><a href="">Our Blog</a>
-
-                                    </li>
+                                    <li class=""><a href="">Portfolio</a></li>
+                                    <li class="{{($route == 'home.blog') ? 'active':''   }}" ><a href="{{ route('home.blog') }}">My Blogs</a></li>
                                     <li class=""> <a  href="">contact me</a></li>
                                 </ul>
                             </div>
