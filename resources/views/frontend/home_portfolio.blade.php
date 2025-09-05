@@ -60,7 +60,9 @@
                 </div>
               @endforeach
             </div>
-
+<div class="pagination-wrap">
+      {{ $portfoliodetails->links('vendor.pagination.custom') }}
+</div>
         </div>
     </section>
     <!-- portfolio-area-end -->

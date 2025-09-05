@@ -149,7 +149,7 @@ class PortfolioController extends Controller
     }
     public function home_portfolio()
     {
-        $portfoliodetails = Portfolio::all();
+        $portfoliodetails = Portfolio::latest()->paginate(3);
         return view('frontend.home_portfolio',compact('portfoliodetails'));
     }
 }
