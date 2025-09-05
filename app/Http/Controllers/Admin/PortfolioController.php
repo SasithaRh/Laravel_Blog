@@ -110,7 +110,7 @@ class PortfolioController extends Controller
         // Resize and save the image
         $manager = new ImageManager(new Driver());
         $image = $manager->read($file->getPathname()); // Read from temporary path
-        $image->resize(430,327);
+        $image->resize(1020,519);
         $image->save($path . $imagename); // Save to final path
          $data['portfolio_image'] = 'upload/portfolio/' . $imagename;
              }
@@ -140,5 +140,16 @@ class PortfolioController extends Controller
             'alert-type'=>'success'
         );
         return redirect()->back()->with($notification );
+    }
+
+     public function portfolio_details($id)
+    {
+        $portfoliodetails = Portfolio::findOrFail($id);
+        return view('frontend.portfolio_details',compact('portfoliodetails'));
+    }
+    public function home_portfolio()
+    {
+        $portfoliodetails = Portfolio::all();
+        return view('frontend.home_portfolio',compact('portfoliodetails'));
     }
 }

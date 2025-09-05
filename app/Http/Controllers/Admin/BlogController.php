@@ -57,7 +57,7 @@ class BlogController extends Controller
         // Resize and save the image
         $manager = new ImageManager(new Driver());
         $image = $manager->read($file->getPathname()); // Read from temporary path
-        $image->resize(430,327);
+        $image->resize(850,430);
         $image->save($path . $imagename); // Save to final path
 
         $data['blog_image'] = 'upload/blog/' . $imagename;

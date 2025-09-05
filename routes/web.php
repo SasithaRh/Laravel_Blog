@@ -155,7 +155,11 @@ Route::middleware(['auth'])->group(function(){
 });
  Route::get('/about', [AboutController::class, 'homeabout'])->name('home.about');
  Route::get('/blogs', [BlogController::class, 'homeblog'])->name('home.blog');
+
   Route::get('/blog/details/{id}', [BlogController::class, 'blogdetails'])->name('blog-details');
  Route::get('/category/blog/{id}', [BlogController::class, 'categoryblog'])->name('category.blog');
+
+   Route::get('/portfolio/details/{id}', [PortfolioController::class, 'portfolio_details'])->name('portfolio.details');
+ Route::get('/home/portfolio', [PortfolioController::class, 'home_portfolio'])->name('home.portfolio');
 
 require __DIR__.'/auth.php';

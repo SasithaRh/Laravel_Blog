@@ -211,7 +211,7 @@
 <!-- work-process-area-end -->
 
 <!-- portfolio-area -->
-{{-- @include('frontend.home_all.home_portfolio')   --}}
+@include('frontend.home_component.home_portfolio')
 
 <!-- portfolio-area-end -->
 
