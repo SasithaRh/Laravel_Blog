@@ -26,7 +26,7 @@ $route =Route::current()->getName();
 
                                     <li class="{{($route == 'home.portfolio') ? 'active':''   }}"><a href="{{ route('home.portfolio') }}">Portfolio</a></li>
                                     <li class="{{($route == 'home.blog') ? 'active':''   }}" ><a href="{{ route('home.blog') }}">My Blogs</a></li>
-                                    <li class=""> <a  href="">contact me</a></li>
+                                    <li class="{{($route == 'contact') ? 'active':''   }}"> <a  href="{{ route('contact') }}">contact Us</a></li>
                                 </ul>
                             </div>
                             <div class="header__btn d-none d-md-block">
