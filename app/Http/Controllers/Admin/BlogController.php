@@ -160,8 +160,9 @@ class BlogController extends Controller
      public function homeblog()
     {
         $blogs = Blog::latest()->paginate(3);
+        $recentblogs = Blog::latest()->limit(5)->get();
         $categories = BlogCategory::orderBy('id','ASC')->get();
-        return view('frontend.blog',compact('blogs','categories'));
+        return view('frontend.blog',compact('blogs','categories','recentblogs'));
     }
     public function blogdetails($id)
     {
@@ -174,10 +175,11 @@ class BlogController extends Controller
     public function categoryblog($id)
     {
         $cat = BlogCategory::find($id);
-        $blogpost = Blog::where('blog_category_id',$id)->orderBy('id','DESC')->get();
+        $blogpost = Blog::where('blog_category_id',$id)->orderBy('id','DESC')->paginate(3);
         $allblogs = Blog::latest()->limit(5)->get();
+        $recentblogs = Blog::latest()->limit(5)->get();
         $categories = BlogCategory::orderBy('id','ASC')->get();
-        return view('frontend.cat_blog_details',compact('blogpost','cat','allblogs','categories'));
+        return view('frontend.cat_blog_details',compact('blogpost','cat','allblogs','categories','recentblogs'));
 
     }
 }

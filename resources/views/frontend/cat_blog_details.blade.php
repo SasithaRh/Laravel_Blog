@@ -8,11 +8,11 @@
             <div class="row justify-content-center">
                 <div class="col-xl-6 col-lg-8 col-md-10">
                     <div class="breadcrumb__wrap__content">
-                        <h2 class="title">All Blogs</h2>
+                        <h2 class="title">{{ $cat['category_name']}}</h2>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ url("/") }}">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Blogs</li>
+                                <li class="breadcrumb-item active" aria-current="page">Blog Category</li>
                             </ol>
                         </nav>
                     </div>
@@ -38,15 +38,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
-                    @foreach ($blogs as $allBlog)
+                    @foreach ($blogpost as $allBlog)
                     <div class="standard__blog__post">
-                        <div class="standard__blog__thumb">
+                         <div class="standard__blog__thumb">
                             <a href="{{ route('blog-details', $allBlog['id']) }}"><img src="{{ asset($allBlog['blog_image'])}}" alt=""></a>
                             <a href="{{ route('blog-details', $allBlog['id']) }}" class="blog__link"><i class="far fa-long-arrow-right"></i></a>
                         </div>
                         <div class="standard__blog__content">
                             <div class="blog__post__avatar">
-                                <div class="thumb"><img src="{{ asset($allBlog['user']['image']) }}" alt=""></div>
+                                   <div class="thumb"><img src="{{ asset($allBlog['user']['image']) }}" alt=""></div>
                                 <span class="post__by">By : <a href="#">{{ $allBlog['user']['name']}}</a></span>
                             </div>
                             <h2 class="title">{{ $allBlog['blog_title']}}</h2>
@@ -59,9 +59,8 @@
                         </div>
                     </div>
                    @endforeach
-
-                    <div class="pagination-wrap">
-                        {{ $blogs->links('vendor.pagination.custom') }}
+                  <div class="pagination-wrap">
+                        {{ $blogpost->links('vendor.pagination.custom') }}
 
                     </div>
                 </div>
@@ -76,7 +75,7 @@
                         <div class="widget">
                             <h4 class="widget-title">Recent Blog</h4>
                             <ul class="rc__post">
-                                @foreach ($recentblogs as $allBlog)
+                                 @foreach ($recentblogs as $allBlog)
                                 <li class="rc__post__item">
                                     <div class="rc__post__thumb">
                                         <a href="{{ route('blog-details', $allBlog['id']) }}"><img src="{{ asset($allBlog['blog_image'])}}" alt=""></a>
