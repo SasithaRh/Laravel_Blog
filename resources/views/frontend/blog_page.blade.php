@@ -46,7 +46,7 @@
                             <ul class="blog__post__meta">
                                 <li><i class="fal fa-calendar-alt"></i> {{
                                     Carbon\Carbon::parse($blogtpage['created_at'])->diffForHumans() }}</li>
-                                <li><i class="fal fa-comments-alt"></i> <a href="#">Comment (08)</a></li>
+                                <li><i class="fal fa-comments-alt"></i> <a href="#">Comment ({{ $comment->count() }})</a></li>
                                 <li class="post-share"><a href="#"><i class="fal fa-share-all"></i> (18)</a></li>
                             </ul>
 
@@ -87,97 +87,66 @@
 
                     <div class="comment comment__wrap">
                         <div class="comment__title">
-                            <h4 class="title">(04) Comment</h4>
+                            <h4 class="title">({{ $comment->count() }}) Comment</h4>
                         </div>
                         <ul class="comment__list">
-                            <li class="comment__item">
+                            @foreach ($comment as $comments)
+
+
+                            <li class="comment__item {{ $comments->id % 2 == 0 ? 'children' : '' }}">
                                 <div class="comment__thumb">
                                     <img src="assets/img/blog/comment_thumb01.png" alt="">
                                 </div>
                                 <div class="comment__content">
                                     <div class="comment__avatar__info">
                                         <div class="info">
-                                            <h4 class="title">Rohan De Spond</h4>
-                                            <span class="date">25 january 2021</span>
+                                            <h4 class="title">{{ $comments['name'] }}</h4>
+                                            <span class="date">{{ \Carbon\Carbon::parse($comments['created_at'])->format('Y-M-d') }}</span>
                                         </div>
                                         <a href="#" class="reply"><i class="far fa-reply-all"></i></a>
                                     </div>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority
-                                        have. There are many variations of passages of Lorem Ipsum available, but the
-                                        majority have</p>
+                                    <p>{{ $comments['massage'] }}</p>
                                 </div>
                             </li>
-                            <li class="comment__item children">
-                                <div class="comment__thumb">
-                                    <img src="assets/img/blog/comment_thumb02.png" alt="">
-                                </div>
-                                <div class="comment__content">
-                                    <div class="comment__avatar__info">
-                                        <div class="info">
-                                            <h4 class="title">Johan Ritaxon</h4>
-                                            <span class="date">25 january 2021</span>
-                                        </div>
-                                        <a href="#" class="reply"><i class="far fa-reply-all"></i></a>
-                                    </div>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority
-                                        have. There are many variations of passages</p>
-                                </div>
-                            </li>
-                            <li class="comment__item">
-                                <div class="comment__thumb">
-                                    <img src="assets/img/blog/comment_thumb03.png" alt="">
-                                </div>
-                                <div class="comment__content">
-                                    <div class="comment__avatar__info">
-                                        <div class="info">
-                                            <h4 class="title">Alexardy Ditartina</h4>
-                                            <span class="date">25 january 2021</span>
-                                        </div>
-                                        <a href="#" class="reply"><i class="far fa-reply-all"></i></a>
-                                    </div>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority
-                                        have. There are many variations of passages of Lorem Ipsum available, but the
-                                        majority have</p>
-                                </div>
-                            </li>
-                            <li class="comment__item children">
-                                <div class="comment__thumb">
-                                    <img src="assets/img/blog/comment_thumb04.png" alt="">
-                                </div>
-                                <div class="comment__content">
-                                    <div class="comment__avatar__info">
-                                        <div class="info">
-                                            <h4 class="title">Rashedul islam Kabir</h4>
-                                            <span class="date">25 january 2021</span>
-                                        </div>
-                                        <a href="#" class="reply"><i class="far fa-reply-all"></i></a>
-                                    </div>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority
-                                        have. There are many variations of passages</p>
-                                </div>
-                            </li>
+                          @endforeach
                         </ul>
                     </div>
                     <div class="comment__form">
                         <div class="comment__title">
                             <h4 class="title">Write your comment</h4>
                         </div>
-                        <form action="#">
+                         <form action="{{ route('home.add_comment') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="blog_id" value="{{$blogtpage['id'] }}">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <input type="text" placeholder="Enter your name*">
+                                    <input type="text" name="name" placeholder="Enter your name*">
+                                      @error('name')
+                                        <span class="text-danger" align="center">{{ $message }}</span>
+                                @enderror
+                                </div>
+
+                                <div class="col-md-6">
+                                    <input type="email" name="email" placeholder="Enter your mail*">
+                                        @error('email')
+                                        <span class="text-danger" align="center">{{ $message }}</span>
+                                @enderror
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="email" placeholder="Enter your mail*">
+                                    <input type="text" name="phone_no" placeholder="Enter your number*">
+                                        @error('phone_no')
+                                        <span class="text-danger" align="center">{{ $message }}</span>
+                                @enderror
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" placeholder="Enter your number*">
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" placeholder="Website*">
+                                    <input type="text" name="link" placeholder="Website*">
                                 </div>
                             </div>
-                            <textarea name="message" id="message" placeholder="Enter your Massage*"></textarea>
+                            <textarea name="massage" id="massage" placeholder="Enter your Massage*"></textarea>
+                               @error('massage')
+                                        <span class="text-danger" align="center">{{ $message }}</span>
+                                @enderror
+
                             <div class="form-grp checkbox-grp">
                                 <input type="checkbox" id="checkbox">
                                 <label for="checkbox">Save my name, email, and website in this browser for the next time
@@ -229,26 +198,13 @@
                     <div class="widget">
                         <h4 class="widget-title">Recent Comment</h4>
                         <ul class="sidebar__comment">
+                            @foreach ($comment as $comments)
                             <li class="sidebar__comment__item">
-                                <a href="blog-details.html">Rasalina Sponde</a>
-                                <p>There are many variations of passages of lorem ipsum available, but the majority have
+                                <a href="blog-details.html">{{ $comments['name'] }}</a>
+                                <p>{{ $comments['massage'] }}
                                 </p>
                             </li>
-                            <li class="sidebar__comment__item">
-                                <a href="blog-details.html">Rasalina Sponde</a>
-                                <p>There are many variations of passages of lorem ipsum available, but the majority have
-                                </p>
-                            </li>
-                            <li class="sidebar__comment__item">
-                                <a href="blog-details.html">Rasalina Sponde</a>
-                                <p>There are many variations of passages of lorem ipsum available, but the majority have
-                                </p>
-                            </li>
-                            <li class="sidebar__comment__item">
-                                <a href="blog-details.html">Rasalina Sponde</a>
-                                <p>There are many variations of passages of lorem ipsum available, but the majority have
-                                </p>
-                            </li>
+                       @endforeach
                         </ul>
                     </div>
                     <div class="widget">

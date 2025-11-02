@@ -7,6 +7,7 @@ use App\Http\Requests\StoreBlogRequest;
 use App\Http\Requests\UpdateBlogRequest;
 use App\Models\Blog;
 use App\Models\BlogCategory;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Drivers\GD\Driver;
 use Intervention\Image\ImageManager;
@@ -161,25 +162,28 @@ class BlogController extends Controller
     {
         $blogs = Blog::latest()->paginate(3);
         $recentblogs = Blog::latest()->limit(5)->get();
+        $comment = Comment::latest()->limit(5)->get();
         $categories = BlogCategory::orderBy('id','ASC')->get();
-        return view('frontend.blog',compact('blogs','categories','recentblogs'));
+        return view('frontend.blog',compact('blogs','categories','recentblogs','comment'));
     }
     public function blogdetails($id)
     {
         $blogtpage = Blog::find($id);
+        $comment = Comment::where('blog_id',$id)->orderBy('created_at','DESC')->latest()->limit(5)->get();
         $allblogs = Blog::latest()->limit(5)->get();
         $categories = BlogCategory::orderBy('id','ASC')->get();
-        return view('frontend.blog_page',compact('blogtpage','allblogs','categories'));
+        return view('frontend.blog_page',compact('blogtpage','allblogs','categories','comment'));
 
     }
     public function categoryblog($id)
     {
         $cat = BlogCategory::find($id);
         $blogpost = Blog::where('blog_category_id',$id)->orderBy('id','DESC')->paginate(3);
+        $comment = Comment::latest()->limit(5)->get();
         $allblogs = Blog::latest()->limit(5)->get();
         $recentblogs = Blog::latest()->limit(5)->get();
         $categories = BlogCategory::orderBy('id','ASC')->get();
-        return view('frontend.cat_blog_details',compact('blogpost','cat','allblogs','categories','recentblogs'));
+        return view('frontend.cat_blog_details',compact('blogpost','cat','allblogs','categories','recentblogs','comment'));
 
     }
 }

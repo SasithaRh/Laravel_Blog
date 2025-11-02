@@ -12,6 +12,7 @@ use App\Http\Controllers\Home\EducationController;
 use App\Http\Controllers\Home\ExperienceController;
 use App\Http\Controllers\Home\SkillController;
 use App\Http\Controllers\Home\ContactController;
+use App\Http\Controllers\Home\CommentController;
 use App\Http\Controllers\ProfileController;
 
 use Illuminate\Support\Facades\Route;
@@ -153,7 +154,7 @@ Route::middleware(['auth'])->group(function () {
 });
 Route::get('/about', [AboutController::class, 'homeabout'])->name('home.about');
 Route::get('/blogs', [BlogController::class, 'homeblog'])->name('home.blog');
-
+Route::post('/blog/comment', [CommentController::class, 'add_comment'])->name('home.add_comment');
 Route::get('/blog/details/{id}', [BlogController::class, 'blogdetails'])->name('blog-details');
 Route::get('/category/blog/{id}', [BlogController::class, 'categoryblog'])->name('category.blog');
 

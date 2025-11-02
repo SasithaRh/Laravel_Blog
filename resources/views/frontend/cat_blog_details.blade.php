@@ -53,7 +53,7 @@
                             <p>{!! $allBlog['blog_description']!!}</p>
                             <ul class="blog__post__meta">
                                 <li><i class="fal fa-calendar-alt"></i> {{ Carbon\Carbon::parse($allBlog['created_at'])->diffForHumans()   }}</li>
-                                <li><i class="fal fa-comments-alt"></i> <a href="#">Comment (08)</a></li>
+
                                 <li class="post-share"><a href="#"><i class="fal fa-share-all"></i> (18)</a></li>
                             </ul>
                         </div>
@@ -99,22 +99,14 @@
                         <div class="widget">
                             <h4 class="widget-title">Recent Comment</h4>
                             <ul class="sidebar__comment">
-                                <li class="sidebar__comment__item">
-                                    <a href="blog-details.html">Rasalina Sponde</a>
-                                    <p>There are many variations of passages of lorem ipsum available, but the majority have</p>
-                                </li>
-                                <li class="sidebar__comment__item">
-                                    <a href="blog-details.html">Rasalina Sponde</a>
-                                    <p>There are many variations of passages of lorem ipsum available, but the majority have</p>
-                                </li>
-                                <li class="sidebar__comment__item">
-                                    <a href="blog-details.html">Rasalina Sponde</a>
-                                    <p>There are many variations of passages of lorem ipsum available, but the majority have</p>
-                                </li>
-                                <li class="sidebar__comment__item">
-                                    <a href="blog-details.html">Rasalina Sponde</a>
-                                    <p>There are many variations of passages of lorem ipsum available, but the majority have</p>
-                                </li>
+                                      @foreach ($comment as $comments)
+                            <li class="sidebar__comment__item">
+                                <a href="blog-details.html">{{ $comments['name'] }} -> {{ $comments['blog']['blog_title'] }}</a>
+                                <p>{{ $comments['massage'] }}
+                                </p>
+                            </li>
+                       @endforeach
+
                             </ul>
                         </div>
                         <div class="widget">
