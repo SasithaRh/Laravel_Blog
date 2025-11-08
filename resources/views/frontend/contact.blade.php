@@ -42,23 +42,38 @@
     <!-- contact-area -->
     <div class="contact-area">
         <div class="container">
-            <form action="" class="contact__form" method="post" >
+            <form action="{{ route('submit_contact') }}" class="contact__form" method="post" >
                 @csrf
                 <div class="row">
                     <div class="col-md-6">
-                        <input name="name" type="text" placeholder="Enter your name*">
+                        <input name="cname" type="text" placeholder="Enter your name*">
+                         @error('cname')
+                                        <span class="text-danger" align="center">{{ $message }}</span>
+                                @enderror
                     </div>
                     <div class="col-md-6">
-                        <input name="email" type="email" placeholder="Enter your mail*">
+                        <input name="cemail" type="email" placeholder="Enter your mail*">
+                         @error('cemail')
+                                        <span class="text-danger" align="center">{{ $message }}</span>
+                                @enderror
                     </div>
                     <div class="col-md-6">
-                        <input name="subject" type="text" placeholder="Enter your subject*">
+                        <input name="csubject" type="text" placeholder="Enter your subject*">
+                         @error('csubject')
+                                        <span class="text-danger" align="center">{{ $message }}</span>
+                                @enderror
                     </div>
                     <div class="col-md-6">
-                        <input name="phone" type="text" placeholder="Enter your phone NO*">
+                        <input name="cphone" type="text" placeholder="Enter your phone NO*">
+                         @error('cphone')
+                                        <span class="text-danger" align="center">{{ $message }}</span>
+                                @enderror
                     </div>
                 </div>
-                <textarea name="message" id="message" placeholder="Enter your massage*"></textarea>
+                <textarea name="cmessage" id="message" placeholder="Enter your massage*"></textarea>
+                 @error('cmessage')
+                                        <span class="text-danger" align="center">{{ $message }}</span>
+                                @enderror
                 <button type="submit" class="btn">send massage</button>
             </form>
         </div>

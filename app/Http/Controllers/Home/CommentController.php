@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
-
+use App\Models\Contact_user;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ContactMail;
 class CommentController extends Controller
 {
     /**
@@ -47,6 +48,34 @@ class CommentController extends Controller
     return redirect()->back()->with($notification);
 }
 
+ public function submit_contact(Request $request)
+    {
+      // dd($request->all());
 
+   $request->validate([
+
+        'cname' => 'required|string|max:255',
+        'cemail' => 'required|email',
+        'cphone' => 'nullable|string|max:20',
+        'csubject' => 'required|string',
+        'cmessage' => 'required|string|max:200|min:10',
+    ]);
+       $save = new Contact_user;
+       $save->cname = $request->cname;
+       $save->cemail = $request->cemail;
+       $save->cphone_no = $request->cphone;
+       $save->csubject = $request->csubject;
+       $save->cmassage = $request->cmessage;
+       $save->is_show = 0;
+       $save->save();
+       Mail::to($save->cemail)->send(new ContactMail($save));
+       $notification = [
+        'message' => 'Thank you for Contact Us!',
+        'alert-type' => 'success'
+    ];
+
+        return redirect()->back()->with($notification);
+
+    }
 
 }

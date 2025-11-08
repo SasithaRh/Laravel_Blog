@@ -161,4 +161,5 @@ Route::get('/category/blog/{id}', [BlogController::class, 'categoryblog'])->name
 Route::get('/portfolio/details/{id}', [PortfolioController::class, 'portfolio_details'])->name('portfolio.details');
 Route::get('/home/portfolio', [PortfolioController::class, 'home_portfolio'])->name('home.portfolio');
 Route::get('/contact', [ContactController::class, 'home_Contact'])->name('contact');
+Route::post('/submit_contact',[CommentController::class,'submit_contact'])->name('submit_contact');
 require __DIR__ . '/auth.php';
