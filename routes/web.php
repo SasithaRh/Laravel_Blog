@@ -4,8 +4,10 @@ use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PortfolioController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\MailController;
 use App\Http\Controllers\Home\AboutController;
 use App\Http\Controllers\Home\HomeSliderController;
 use App\Http\Controllers\Home\EducationController;
@@ -31,12 +33,13 @@ Route::get('/', function () {
     return view('frontend.index');
 });
 
-Route::get('/dashboard', function () {
-    return view('admin.index');
-})->middleware(['role:super-admin|admin', 'auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {s
+//     return view('admin.index');
+// })->middleware(['role:super-admin|admin', 'auth', 'verified'])->name('dashboard');
 
 
 Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware(['role:super-admin|admin', 'auth', 'verified']);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -63,7 +66,16 @@ Route::middleware(['auth'])->group(function () {
         Route::post('update/blog', 'update')->name('blog.update')->middleware(['role:super-admin|admin', 'permission:Update Blog']);
     });
 });
-
+Route::middleware(['auth'])->group(function () {
+    Route::controller(MailController::class)->group(function () {
+        Route::get('mail', 'index')->name('mail.index');
+        // Route::get('create/blog', 'create')->name('blog.create')->middleware(['role:super-admin|admin', 'permission:Create Blog']);
+        // Route::post('store/blog', 'store')->name('blog.store')->middleware(['role:super-admin|admin', 'permission:Create Blog']);
+        // Route::get('edit/blog/{id}', 'edit')->name('blog.edit')->middleware(['role:super-admin|admin', 'permission:Update Blog']);
+        // Route::get('delete/blog/{id}', 'destroy')->name('blog.delete')->middleware(['role:super-admin|admin', 'permission:Delete Blog']);
+        // Route::post('update/blog', 'update')->name('blog.update')->middleware(['role:super-admin|admin', 'permission:Update Blog']);
+    });
+});
 Route::middleware(['auth'])->group(function () {
     Route::controller(PortfolioController::class)->group(function () {
         Route::get('portfolio', 'index')->name('portfolio.index')->middleware(['role:super-admin|admin', 'permission:View Portfolio']);
@@ -162,4 +174,7 @@ Route::get('/portfolio/details/{id}', [PortfolioController::class, 'portfolio_de
 Route::get('/home/portfolio', [PortfolioController::class, 'home_portfolio'])->name('home.portfolio');
 Route::get('/contact', [ContactController::class, 'home_Contact'])->name('contact');
 Route::post('/submit_contact',[CommentController::class,'submit_contact'])->name('submit_contact');
+// Route::get('dashboard/get_blogs', [DashboardController::class, 'show_blogs'])->name('dashboard/get_blogs');
+Route::post('dashboard/get_blogs', [DashboardController::class, 'show_blogs'])
+    ->name('dashboard.get_blogs');
 require __DIR__ . '/auth.php';

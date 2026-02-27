@@ -124,6 +124,7 @@
     <div class="rightbar-overlay"></div>
 
     <!-- JAVASCRIPT -->
+
     <script src="{{ asset('backend/assets/libs/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('backend/assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('backend/assets/libs/metismenu/metisMenu.min.js') }}"></script>
@@ -193,6 +194,17 @@
             break;
          }
          @endif
+    </script>
+   <script>
+        $(document).ready(function () {
+
+    if ($(window).width() >= 992) {
+        $("body").addClass("vertical-collpsed");   // collapse sidebar (desktop)
+    } else {
+        $("body").removeClass("sidebar-enable");   // ensure hidden (mobile)
+    }
+
+});
     </script>
 
 </body>

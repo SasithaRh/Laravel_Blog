@@ -8,7 +8,7 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <h3 class="card-title mb-5">Edit Profile</h3>
+                        <h3 class="card-title mb-5" id="changecolor">Edit Profile</h3>
                        <form action="{{ route('home_slider.update') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="id" value="{{$homesliders['id'] }}">
@@ -82,6 +82,9 @@
                 reader.readAsDataURL(e.target.files['0']);
 
         });
+    });
+     $(document).on('click', '#changecolor', function () {
+        alert('Card Clicked');
     });
 </script>
 @endsection
