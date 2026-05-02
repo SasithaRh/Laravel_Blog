@@ -46,7 +46,8 @@
                             <ul class="blog__post__meta">
                                 <li><i class="fal fa-calendar-alt"></i> {{
                                     Carbon\Carbon::parse($blogtpage['created_at'])->diffForHumans() }}</li>
-                                <li><i class="fal fa-comments-alt"></i> <a href="#">Comment ({{ $comment->count() }})</a></li>
+                                <li><i class="fal fa-comments-alt"></i> <a href="#">Comment ({{ $comment->count()
+                                        }})</a></li>
                                 <li class="post-share"><a href="#"><i class="fal fa-share-all"></i> (18)</a></li>
                             </ul>
 
@@ -68,11 +69,15 @@
                     <div class="blog__details__bottom">
                         <ul class="blog__details__tag">
                             <li class="title">Tag:</li>
+                            @php
+                            $tags = explode(',', $blogtpage['blog_tags']);
+                            @endphp
+
+                            @foreach($tags as $tag)
                             <li class="tags-list">
-
-                                <a href="#">{{ $blogtpage['blog_tags']}}</a>
-
+                                <a href="#">{{ trim($tag) }}</a>
                             </li>
+                            @endforeach
                         </ul>
                         <ul class="blog__details__social">
                             <li class="title">Share :</li>
@@ -101,51 +106,53 @@
                                     <div class="comment__avatar__info">
                                         <div class="info">
                                             <h4 class="title">{{ $comments['name'] }}</h4>
-                                            <span class="date">{{ \Carbon\Carbon::parse($comments['created_at'])->format('Y-M-d') }}</span>
+                                            <span class="date">{{
+                                                \Carbon\Carbon::parse($comments['created_at'])->format('Y-M-d')
+                                                }}</span>
                                         </div>
                                         <a href="#" class="reply"><i class="far fa-reply-all"></i></a>
                                     </div>
                                     <p>{{ $comments['massage'] }}</p>
                                 </div>
                             </li>
-                          @endforeach
+                            @endforeach
                         </ul>
                     </div>
                     <div class="comment__form">
                         <div class="comment__title">
                             <h4 class="title">Write your comment</h4>
                         </div>
-                         <form action="{{ route('home.add_comment') }}" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <input type="hidden" name="blog_id" value="{{$blogtpage['id'] }}">
+                        <form action="{{ route('home.add_comment') }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" name="blog_id" value="{{$blogtpage['id'] }}">
                             <div class="row">
                                 <div class="col-md-6">
                                     <input type="text" name="name" placeholder="Enter your name*">
-                                      @error('name')
-                                        <span class="text-danger" align="center">{{ $message }}</span>
-                                @enderror
+                                    @error('name')
+                                    <span class="text-danger" align="center">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="col-md-6">
                                     <input type="email" name="email" placeholder="Enter your mail*">
-                                        @error('email')
-                                        <span class="text-danger" align="center">{{ $message }}</span>
-                                @enderror
+                                    @error('email')
+                                    <span class="text-danger" align="center">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" name="phone_no" placeholder="Enter your number*">
-                                        @error('phone_no')
-                                        <span class="text-danger" align="center">{{ $message }}</span>
-                                @enderror
+                                    @error('phone_no')
+                                    <span class="text-danger" align="center">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" name="link" placeholder="Website*">
                                 </div>
                             </div>
                             <textarea name="massage" id="massage" placeholder="Enter your Massage*"></textarea>
-                               @error('massage')
-                                        <span class="text-danger" align="center">{{ $message }}</span>
-                                @enderror
+                            @error('massage')
+                            <span class="text-danger" align="center">{{ $message }}</span>
+                            @enderror
 
                             <div class="form-grp checkbox-grp">
                                 <input type="checkbox" id="checkbox">
@@ -157,75 +164,76 @@
                     </div>
                 </div>
 
-            <div class="col-lg-4">
-                <aside class="blog__sidebar">
-                    <div class="widget">
-                        <form action="#" class="search-form">
-                            <input type="text" placeholder="Search">
-                            <button type="submit"><i class="fal fa-search"></i></button>
-                        </form>
-                    </div>
-                    <div class="widget">
-                        <h4 class="widget-title">Recent Blog</h4>
-                        <ul class="rc__post">
-                            @foreach ($allblogs as $allBlog)
-                            <li class="rc__post__item">
-                                <div class="rc__post__thumb">
-                                    <a href="{{ route('blog-details', $allBlog['id']) }}"><img
-                                            src="{{ asset($allBlog['blog_image'])}}" alt=""></a>
-                                </div>
-                                <div class="rc__post__content">
-                                    <h5 class="title"><a href="{{ route('blog-details', $allBlog['id']) }}">{{
-                                            $allBlog['blog_title']}}</a></h5>
-                                    <span class="post-date"><i class="fal fa-calendar-alt"></i> {{
-                                        Carbon\Carbon::parse($allBlog['created_at'])->diffForHumans() }}</span>
-                                </div>
-                                <div class="blog__post__avatar">
+                <div class="col-lg-4">
+                    <aside class="blog__sidebar">
+                        <div class="widget">
+                            <form action="#" class="search-form">
+                                <input type="text" placeholder="Search">
+                                <button type="submit"><i class="fal fa-search"></i></button>
+                            </form>
+                        </div>
+                        <div class="widget">
+                            <h4 class="widget-title">Recent Blog</h4>
+                            <ul class="rc__post">
+                                @foreach ($allblogs as $allBlog)
+                                <li class="rc__post__item">
+                                    <div class="rc__post__thumb">
+                                        <a href="{{ route('blog-details', $allBlog['id']) }}"><img
+                                                src="{{ asset($allBlog['blog_image'])}}" alt=""></a>
+                                    </div>
+                                    <div class="rc__post__content">
+                                        <h5 class="title"><a href="{{ route('blog-details', $allBlog['id']) }}">{{
+                                                $allBlog['blog_title']}}</a></h5>
+                                        <span class="post-date"><i class="fal fa-calendar-alt"></i> {{
+                                            Carbon\Carbon::parse($allBlog['created_at'])->diffForHumans() }}</span>
+                                    </div>
+                                    <div class="blog__post__avatar">
 
-                            </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    <div class="widget">
-                        <h4 class="widget-title">Categories</h4>
-                        <ul class="sidebar__cat">
-                            @foreach ($categories as $category)
-                            <li class="sidebar__cat__item"><a href="{{ route('category.blog', $category['id']) }}"> {{
-                                    $category['category_name']}}</a></li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    <div class="widget">
-                        <h4 class="widget-title">Recent Comment</h4>
-                        <ul class="sidebar__comment">
-                            @foreach ($comment as $comments)
-                            <li class="sidebar__comment__item">
-                                <a href="blog-details.html">{{ $comments['name'] }}</a>
-                                <p>{{ $comments['massage'] }}
-                                </p>
-                            </li>
-                       @endforeach
-                        </ul>
-                    </div>
-                    <div class="widget">
-                        <h4 class="widget-title">Popular Tags</h4>
-                        <ul class="sidebar__tags">
-                            <li><a href="blog.html">Business</a></li>
-                            <li><a href="blog.html">Design</a></li>
-                            <li><a href="blog.html">apps</a></li>
-                            <li><a href="blog.html">landing page</a></li>
-                            <li><a href="blog.html">data</a></li>
-                            <li><a href="blog.html">website</a></li>
-                            <li><a href="blog.html">book</a></li>
-                            <li><a href="blog.html">Design</a></li>
-                            <li><a href="blog.html">product design</a></li>
-                            <li><a href="blog.html">landing page</a></li>
-                            <li><a href="blog.html">data</a></li>
-                        </ul>
-                    </div>
-                </aside>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        <div class="widget">
+                            <h4 class="widget-title">Categories</h4>
+                            <ul class="sidebar__cat">
+                                @foreach ($categories as $category)
+                                <li class="sidebar__cat__item"><a href="{{ route('category.blog', $category['id']) }}">
+                                        {{
+                                        $category['category_name']}}</a></li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        <div class="widget">
+                            <h4 class="widget-title">Recent Comment</h4>
+                            <ul class="sidebar__comment">
+                                @foreach ($comment as $comments)
+                                <li class="sidebar__comment__item">
+                                    <a href="blog-details.html">{{ $comments['name'] }}</a>
+                                    <p>{{ $comments['massage'] }}
+                                    </p>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        <div class="widget">
+                            <h4 class="widget-title">Popular Tags</h4>
+                            <ul class="sidebar__tags">
+                                <li><a href="blog.html">Business</a></li>
+                                <li><a href="blog.html">Design</a></li>
+                                <li><a href="blog.html">apps</a></li>
+                                <li><a href="blog.html">landing page</a></li>
+                                <li><a href="blog.html">data</a></li>
+                                <li><a href="blog.html">website</a></li>
+                                <li><a href="blog.html">book</a></li>
+                                <li><a href="blog.html">Design</a></li>
+                                <li><a href="blog.html">product design</a></li>
+                                <li><a href="blog.html">landing page</a></li>
+                                <li><a href="blog.html">data</a></li>
+                            </ul>
+                        </div>
+                    </aside>
+                </div>
             </div>
-        </div>
         </div>
     </section>
     <!-- blog-details-area-end -->

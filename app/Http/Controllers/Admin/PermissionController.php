@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Notification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
+
 class PermissionController extends Controller
 {
     /**
@@ -40,6 +43,10 @@ class PermissionController extends Controller
             'message'=>'Permission Added Successfully!',
             'alert-type'=>'success'
         );
+         $user_id = Auth::user()->id;
+        $url = url("permission");
+        $message = "New Permission Added";
+        Notification::insertRecord($user_id, $url, $message);
         return redirect('permission')->with($notification);
     }
 

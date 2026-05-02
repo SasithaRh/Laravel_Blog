@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\BlogCategory;
 use App\Http\Requests\StoreBlogCategoryRequest;
 use App\Http\Requests\UpdateBlogCategoryRequest;
+use App\Models\BlogCategory;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Auth;
+
 class BlogCategoryController extends Controller
 {
     /**
@@ -48,6 +50,10 @@ class BlogCategoryController extends Controller
             'message'=>'Blog Category Added Successfully!',
             'alert-type'=>'success'
         );
+         $user_id = Auth::user()->id;
+        $url = url("blog_category");
+        $message = "New Blog Category Added";
+        Notification::insertRecord($user_id, $url, $message);
         return redirect('blog_category')->with($notification);
 
     }

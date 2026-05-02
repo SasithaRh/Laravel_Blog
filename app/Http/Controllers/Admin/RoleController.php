@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Notification;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+
 class RoleController extends Controller
 {
     public function index()
@@ -39,6 +42,10 @@ class RoleController extends Controller
             'message'=>'Role Added Successfully!',
             'alert-type'=>'success'
         );
+            $user_id = Auth::user()->id;
+        $url = url("role");
+        $message = "New Role Added";
+        Notification::insertRecord($user_id, $url, $message);
         return redirect('role')->with($notification);
     }
 

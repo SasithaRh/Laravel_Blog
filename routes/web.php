@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\MailController;
+use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Home\AboutController;
 use App\Http\Controllers\Home\HomeSliderController;
 use App\Http\Controllers\Home\EducationController;
@@ -169,7 +170,7 @@ Route::get('/blogs', [BlogController::class, 'homeblog'])->name('home.blog');
 Route::post('/blog/comment', [CommentController::class, 'add_comment'])->name('home.add_comment');
 Route::get('/blog/details/{id}', [BlogController::class, 'blogdetails'])->name('blog-details');
 Route::get('/category/blog/{id}', [BlogController::class, 'categoryblog'])->name('category.blog');
-
+Route::get('notification/remove',[NotificationController::class,'remove'])->name('notification.remove');
 Route::get('/portfolio/details/{id}', [PortfolioController::class, 'portfolio_details'])->name('portfolio.details');
 Route::get('/home/portfolio', [PortfolioController::class, 'home_portfolio'])->name('home.portfolio');
 Route::get('/contact', [ContactController::class, 'home_Contact'])->name('contact');

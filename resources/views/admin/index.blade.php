@@ -222,7 +222,7 @@
 
                         <div class="table-responsive" style="height: 400px; overflow:scroll;">
                             <table class="table table-centered mb-0 align-middle table-hover table-nowrap">
-                                <thead class="table-light" style="position: sticky;top: 0;">
+                                <thead class="table-light" style="position: sticky; top: 0;  z-index: 1" >
                                     <tr>
                                         <th>Name</th>
                                         <th>Title</th>

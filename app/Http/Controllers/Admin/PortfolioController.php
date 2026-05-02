@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Portfolio;
 use App\Http\Requests\StorePortfolioRequest;
 use App\Http\Requests\UpdatePortfolioRequest;
+use App\Models\Notification;
+use App\Models\Portfolio;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Drivers\GD\Driver;
 use Intervention\Image\ImageManager;
+
 class PortfolioController extends Controller
 {
     /**
@@ -60,6 +62,10 @@ class PortfolioController extends Controller
             'message'=>'Portfolio Created Successfully!',
             'alert-type'=>'success'
         );
+          $user_id = Auth::user()->id;
+        $url = url("portfolio");
+        $message = "New Portfolio Added";
+        Notification::insertRecord($user_id, $url, $message);
         return redirect('portfolio')->with($notification );
 
     }

@@ -1,5 +1,8 @@
 @extends('frontend.main_master')
 @section('main')
+@php
+use Illuminate\Support\Str;
+@endphp
 <main>
 
     <!-- breadcrumb-area -->
@@ -41,8 +44,10 @@
                     @foreach ($blogs as $allBlog)
                     <div class="standard__blog__post">
                         <div class="standard__blog__thumb">
-                            <a href="{{ route('blog-details', $allBlog['id']) }}"><img src="{{ asset($allBlog['blog_image'])}}" alt=""></a>
-                            <a href="{{ route('blog-details', $allBlog['id']) }}" class="blog__link"><i class="far fa-long-arrow-right"></i></a>
+                            <a href="{{ route('blog-details', $allBlog['id']) }}"><img
+                                    src="{{ asset($allBlog['blog_image'])}}" alt=""></a>
+                            <a href="{{ route('blog-details', $allBlog['id']) }}" class="blog__link"><i
+                                    class="far fa-long-arrow-right"></i></a>
                         </div>
                         <div class="standard__blog__content">
                             <div class="blog__post__avatar">
@@ -50,15 +55,20 @@
                                 <span class="post__by">By : <a href="#">{{ $allBlog['user']['name']}}</a></span>
                             </div>
                             <h2 class="title">{{ $allBlog['blog_title']}}</h2>
-                            <p>{!! $allBlog['blog_description']!!}</p>
+
+
+                            <p>
+                                {{ Str::limit(strip_tags($allBlog['blog_description']), 200, '...') }}
+                            </p>
                             <ul class="blog__post__meta">
-                                <li><i class="fal fa-calendar-alt"></i> {{ Carbon\Carbon::parse($allBlog['created_at'])->diffForHumans()   }}</li>
+                                <li><i class="fal fa-calendar-alt"></i> {{
+                                    Carbon\Carbon::parse($allBlog['created_at'])->diffForHumans() }}</li>
 
                                 <li class="post-share"><a href="#"><i class="fal fa-share-all"></i> (18)</a></li>
                             </ul>
                         </div>
                     </div>
-                   @endforeach
+                    @endforeach
 
                     <div class="pagination-wrap">
                         {{ $blogs->links('vendor.pagination.custom') }}
@@ -79,34 +89,39 @@
                                 @foreach ($recentblogs as $allBlog)
                                 <li class="rc__post__item">
                                     <div class="rc__post__thumb">
-                                        <a href="{{ route('blog-details', $allBlog['id']) }}"><img src="{{ asset($allBlog['blog_image'])}}" alt=""></a>
+                                        <a href="{{ route('blog-details', $allBlog['id']) }}"><img
+                                                src="{{ asset($allBlog['blog_image'])}}" alt=""></a>
                                     </div>
                                     <div class="rc__post__content">
-                                        <h5 class="title"><a href="{{ route('blog-details', $allBlog['id']) }}">{{ $allBlog['blog_title']}}</a></h5>
-                                        <span class="post-date"><i class="fal fa-calendar-alt"></i> {{ Carbon\Carbon::parse($allBlog['created_at'])->diffForHumans()   }}</span>
+                                        <h5 class="title"><a href="{{ route('blog-details', $allBlog['id']) }}">{{
+                                                $allBlog['blog_title']}}</a></h5>
+                                        <span class="post-date"><i class="fal fa-calendar-alt"></i> {{
+                                            Carbon\Carbon::parse($allBlog['created_at'])->diffForHumans() }}</span>
                                     </div>
                                 </li>
-                             @endforeach
+                                @endforeach
                             </ul>
                         </div>
                         <div class="widget">
                             <h4 class="widget-title">Categories</h4>
                             <ul class="sidebar__cat">
                                 @foreach ($categories as $category)
-                                <li class="sidebar__cat__item"><a href="{{ route('category.blog', $category['id']) }}"> {{ $category['category_name']}}</a></li>
+                                <li class="sidebar__cat__item"><a href="{{ route('category.blog', $category['id']) }}">
+                                        {{ $category['category_name']}}</a></li>
                                 @endforeach
                             </ul>
                         </div>
                         <div class="widget">
                             <h4 class="widget-title">Recent Comment</h4>
                             <ul class="sidebar__comment">
-                                  @foreach ($comment as $comments)
-                            <li class="sidebar__comment__item">
-                                <a href="blog-details.html">{{ $comments['name'] }} -> {{ $comments['blog']['blog_title'] }}</a>
-                                <p>{{ $comments['massage'] }}
-                                </p>
-                            </li>
-                       @endforeach
+                                @foreach ($comment as $comments)
+                                <li class="sidebar__comment__item">
+                                    <a href="blog-details.html">{{ $comments['name'] }} -> {{
+                                        $comments['blog']['blog_title'] }}</a>
+                                    <p>{{ $comments['massage'] }}
+                                    </p>
+                                </li>
+                                @endforeach
                             </ul>
                         </div>
                         <div class="widget">
@@ -144,7 +159,8 @@
                             <h2 class="title">Any questions? Feel free <br> to contact</h2>
                         </div>
                         <div class="homeContact__content">
-                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form</p>
+                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have
+                                suffered alteration in some form</p>
                             <h2 class="mail"><a href="mailto:Info@webmail.com">Info@webmail.com</a></h2>
                         </div>
                     </div>

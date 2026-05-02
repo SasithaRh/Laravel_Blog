@@ -36,7 +36,7 @@
                                     <td>{{ $blog['category']['category_name'] }}</td>
                                     <td>{{ $blog['blog_title'] }}</td>
                                     <td>{{ $blog['blog_tags'] }}</td>
-                                    <td><img src="{{ $blog['blog_image'] }}" width="50px" height="50px"></td>
+                                    <td><img src="{{ $blog['blog_image'] }}" width="70px" height="50px"></td>
                                     <td>
                                         <a href="{{ route('blog.edit',$blog['id']) }}" class="btn btn-info sm"><i
                                                 class="fas fa-edit"></i></a>

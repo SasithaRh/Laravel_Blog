@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ContactMail;
 use App\Models\Comment;
 use App\Models\Contact_user;
+use App\Models\Notification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\ContactMail;
+
 class CommentController extends Controller
 {
     /**
@@ -73,6 +76,10 @@ class CommentController extends Controller
         'message' => 'Thank you for Contact Us!',
         'alert-type' => 'success'
     ];
+     $user_id = Auth::user()->id;
+        $url = url("mail");
+        $message = "New Mail";
+        Notification::insertRecord($user_id, $url, $message);
 
         return redirect()->back()->with($notification);
 
